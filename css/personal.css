@@ -586,3 +586,7 @@ button{
     background-color: #4ba08b;
     color: #FFFFFF; 
 }
+
+#taskName{
+	outline-color: #84DCC6;
+}
