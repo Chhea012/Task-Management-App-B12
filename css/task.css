@@ -774,3 +774,44 @@ body {
 .add-main-task{
 	margin-top: 20px;
 }
+
+
+#task-description{
+	width: 80%;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#taskDescription{
+	width: 80%;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#edit-task-description{
+	width: 80%;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#taskStatus{
+	width: 80%;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#edit-task-name{
+	width: 80%;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#task-name{
+	width: 80%;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#swal2-title{
+	text-align: start;
+	margin-left: 40px;
+	font-size: 30px;
+	font-weight: lighter;
+}

@@ -92,7 +92,7 @@ function deleteTask(taskCard, task, index) {
 // Event listener for the button click to create new task
 ButtonTask.addEventListener('click', () => {
   Swal.fire({
-    title: 'Create New Task',
+    title: 'Add Task',
     html: `
       <input id="taskStatus" class="swal2-input" placeholder="Enter task status" />
       <textarea id="taskDescription" class="swal2-textarea" placeholder="Enter task description"></textarea>
@@ -328,7 +328,7 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll('.add-task-btn').forEach((item) => {
     item.addEventListener('click', () => {
         Swal.fire({
-            title: 'Create a Task',
+            title: 'Add new item',
             html: `
                 <input type="text" id="task-name" class="swal2-input" placeholder="Task Name">
                 <textarea id="task-description" class="swal2-textarea" placeholder="Task Description"></textarea>
@@ -373,173 +373,173 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-let myChart;
-        let taskData = { todo: 0, inProgress: 0, done: 0 };
+// let myChart;
+//         let taskData = { todo: 0, inProgress: 0, done: 0 };
 
-        // Function to save tasks to localStorage
-        function saveTasksToLocalStorage() {
-            const tasks = [];
-            document.querySelectorAll('.task').forEach((task) => {
-                const taskName = task.querySelector('h5').textContent;
-                const taskDescription = task.querySelector('p').textContent;
-                const parentClass = task.closest('.card-task').classList[1]; // Get the container class (e.g., 'todo', 'in-progress', 'done')
-                tasks.push({ taskName, taskDescription, parentClass });
-            });
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-            updateChartData(); // Update chart whenever tasks are saved
-        }
+//         // Function to save tasks to localStorage
+//         function saveTasksToLocalStorage() {
+//             const tasks = [];
+//             document.querySelectorAll('.task').forEach((task) => {
+//                 const taskName = task.querySelector('h5').textContent;
+//                 const taskDescription = task.querySelector('p').textContent;
+//                 const parentClass = task.closest('.card-task').classList[1]; // Get the container class (e.g., 'todo', 'in-progress', 'done')
+//                 tasks.push({ taskName, taskDescription, parentClass });
+//             });
+//             localStorage.setItem('tasks', JSON.stringify(tasks));
+//             updateChartData(); // Update chart whenever tasks are saved
+//         }
 
-        // Function to load tasks from localStorage
-        function loadTasksFromLocalStorage() {
-            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-            tasks.forEach(({ taskName, taskDescription, parentClass }) => {
-                const targetContainer = `.card-task.${parentClass}`;
-                createTask(taskName, taskDescription, targetContainer, false); // false = don't save again
-            });
-            updateChartData(); // Update chart after loading tasks
-        }
+//         // Function to load tasks from localStorage
+//         function loadTasksFromLocalStorage() {
+//             const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+//             tasks.forEach(({ taskName, taskDescription, parentClass }) => {
+//                 const targetContainer = `.card-task.${parentClass}`;
+//                 createTask(taskName, taskDescription, targetContainer, false); // false = don't save again
+//             });
+//             updateChartData(); // Update chart after loading tasks
+//         }
 
-        // Function to create and append a new task
-        function createTask(taskName, taskDescription, targetContainer, save = true) {
-            const taskDiv = document.createElement('div');
-            taskDiv.classList.add('task');
-            taskDiv.setAttribute('draggable', 'true'); // Make the task draggable
+//         // Function to create and append a new task
+//         function createTask(taskName, taskDescription, targetContainer, save = true) {
+//             const taskDiv = document.createElement('div');
+//             taskDiv.classList.add('task');
+//             taskDiv.setAttribute('draggable', 'true'); // Make the task draggable
 
-            taskDiv.innerHTML = `
-                <div class="btn-task">
-                    <div class="task-flex">
-                        <button class="do-done"></button>
-                        <h5>${taskName}</h5>
-                    </div>
-                    <i class='bx bx-dots-horizontal-rounded icons'></i>
-                </div>
-                <p>${taskDescription}</p>
-            `;
-            document.querySelector(targetContainer).appendChild(taskDiv);
-            addDragEvents(taskDiv); // Add drag-and-drop functionality to the task
+//             taskDiv.innerHTML = `
+//                 <div class="btn-task">
+//                     <div class="task-flex">
+//                         <button class="do-done"></button>
+//                         <h5>${taskName}</h5>
+//                     </div>
+//                     <i class='bx bx-dots-horizontal-rounded icons'></i>
+//                 </div>
+//                 <p>${taskDescription}</p>
+//             `;
+//             document.querySelector(targetContainer).appendChild(taskDiv);
+//             addDragEvents(taskDiv); // Add drag-and-drop functionality to the task
 
-            if (save) saveTasksToLocalStorage(); // Save to localStorage only if specified
-        }
+//             if (save) saveTasksToLocalStorage(); // Save to localStorage only if specified
+//         }
 
-        // Add drag-and-drop events to tasks
-        function addDragEvents(task) {
-            task.addEventListener('dragstart', () => {
-                task.classList.add('dragging');
-            });
+//         // Add drag-and-drop events to tasks
+//         function addDragEvents(task) {
+//             task.addEventListener('dragstart', () => {
+//                 task.classList.add('dragging');
+//             });
 
-            task.addEventListener('dragend', () => {
-                task.classList.remove('dragging');
-                saveTasksToLocalStorage(); // Save updated tasks after moving
-            });
-        }
+//             task.addEventListener('dragend', () => {
+//                 task.classList.remove('dragging');
+//                 saveTasksToLocalStorage(); // Save updated tasks after moving
+//             });
+//         }
 
-        // Allow dropping into task containers
-        document.querySelectorAll('.card-task').forEach((container) => {
-            container.addEventListener('dragover', (e) => {
-                e.preventDefault(); // Allow dropping by preventing the default behavior
-                container.classList.add('drag-over');
-            });
+//         // Allow dropping into task containers
+//         document.querySelectorAll('.card-task').forEach((container) => {
+//             container.addEventListener('dragover', (e) => {
+//                 e.preventDefault(); // Allow dropping by preventing the default behavior
+//                 container.classList.add('drag-over');
+//             });
 
-            container.addEventListener('dragleave', () => {
-                container.classList.remove('drag-over');
-            });
+//             container.addEventListener('dragleave', () => {
+//                 container.classList.remove('drag-over');
+//             });
 
-            container.addEventListener('drop', (e) => {
-                e.preventDefault();
-                container.classList.remove('drag-over');
+//             container.addEventListener('drop', (e) => {
+//                 e.preventDefault();
+//                 container.classList.remove('drag-over');
 
-                // Get the dragged task
-                const draggedTask = document.querySelector('.dragging');
-                container.appendChild(draggedTask); // Move the task to the new container
+//                 // Get the dragged task
+//                 const draggedTask = document.querySelector('.dragging');
+//                 container.appendChild(draggedTask); // Move the task to the new container
 
-                saveTasksToLocalStorage(); // Save after task moved
-            });
-        });
+//                 saveTasksToLocalStorage(); // Save after task moved
+//             });
+//         });
 
-        // Update chart data dynamically based on task statuses
-        function updateChartData() {
-            taskData = { todo: 0, inProgress: 0, done: 0 };
+//         // Update chart data dynamically based on task statuses
+//         function updateChartData() {
+//             taskData = { todo: 0, inProgress: 0, done: 0 };
 
-            // Count tasks in each status
-            document.querySelectorAll('.task').forEach((task) => {
-                const parentClass = task.closest('.card-task').classList[1];
-                if (parentClass === 'todo') taskData.todo++;
-                if (parentClass === 'in-progress') taskData.inProgress++;
-                if (parentClass === 'done') taskData.done++;
-            });
+//             // Count tasks in each status
+//             document.querySelectorAll('.task').forEach((task) => {
+//                 const parentClass = task.closest('.card-task').classList[1];
+//                 if (parentClass === 'todo') taskData.todo++;
+//                 if (parentClass === 'in-progress') taskData.inProgress++;
+//                 if (parentClass === 'done') taskData.done++;
+//             });
 
-            // Update chart with new data
-            if (myChart) {
-                myChart.data.datasets[0].data = [taskData.todo, taskData.inProgress, taskData.done];
-                myChart.update();
-            }
-        }
+//             // Update chart with new data
+//             if (myChart) {
+//                 myChart.data.datasets[0].data = [taskData.todo, taskData.inProgress, taskData.done];
+//                 myChart.update();
+//             }
+//         }
 
-        // Initialize chart
-        function initChart() {
-            const ctx = document.getElementById('myChart').getContext('2d');
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Todo', 'In Progress', 'Done'],
-                    datasets: [{
-                        label: '# of Tasks',
-                        data: [taskData.todo, taskData.inProgress, taskData.done],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(75, 192, 192, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
+//         // Initialize chart
+//         function initChart() {
+//             const ctx = document.getElementById('myChart').getContext('2d');
+//             myChart = new Chart(ctx, {
+//                 type: 'bar',
+//                 data: {
+//                     labels: ['Todo', 'In Progress', 'Done'],
+//                     datasets: [{
+//                         label: '# of Tasks',
+//                         data: [taskData.todo, taskData.inProgress, taskData.done],
+//                         backgroundColor: [
+//                             'rgba(255, 99, 132, 0.2)',
+//                             'rgba(54, 162, 235, 0.2)',
+//                             'rgba(75, 192, 192, 0.2)',
+//                         ],
+//                         borderColor: [
+//                             'rgba(255, 99, 132, 1)',
+//                             'rgba(54, 162, 235, 1)',
+//                             'rgba(75, 192, 192, 1)',
+//                         ],
+//                         borderWidth: 1
+//                     }]
+//                 },
+//                 options: {
+//                     scales: {
+//                         y: {
+//                             beginAtZero: true
+//                         }
+//                     }
+//                 }
+//             });
+//         }
 
-        // Add task button event listener
-        document.querySelector('.add-task-btn').addEventListener('click', () => {
-            Swal.fire({
-                title: 'Create a Task',
-                html: `
-                    <input type="text" id="task-name" class="swal2-input" placeholder="Task Name">
-                    <textarea id="task-description" class="swal2-textarea" placeholder="Task Description"></textarea>
-                `,
-                focusConfirm: false,
-                preConfirm: () => {
-                    const taskName = document.getElementById('task-name').value;
-                    const taskDescription = document.getElementById('task-description').value;
+//         // Add task button event listener
+//         document.querySelector('.add-task-btn').addEventListener('click', () => {
+//             Swal.fire({
+//                 title: 'Create a Task',
+//                 html: `
+//                     <input type="text" id="task-name" class="swal2-input" placeholder="Task Name">
+//                     <textarea id="task-description" class="swal2-textarea" placeholder="Task Description"></textarea>
+//                 `,
+//                 focusConfirm: false,
+//                 preConfirm: () => {
+//                     const taskName = document.getElementById('task-name').value;
+//                     const taskDescription = document.getElementById('task-description').value;
 
-                    if (!taskName || !taskDescription) {
-                        Swal.showValidationMessage('Please enter both task name and description.');
-                        return false;
-                    }
+//                     if (!taskName || !taskDescription) {
+//                         Swal.showValidationMessage('Please enter both task name and description.');
+//                         return false;
+//                     }
 
-                    return { taskName, taskDescription };
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const { taskName, taskDescription } = result.value;
-                    const targetContainer = '.card-task.todo'; // Default container is 'Todo'
-                    createTask(taskName, taskDescription, targetContainer);
-                    saveTasksToLocalStorage();
-                }
-            });
-        });
+//                     return { taskName, taskDescription };
+//                 }
+//             }).then((result) => {
+//                 if (result.isConfirmed) {
+//                     const { taskName, taskDescription } = result.value;
+//                     const targetContainer = '.card-task.todo'; // Default container is 'Todo'
+//                     createTask(taskName, taskDescription, targetContainer);
+//                     saveTasksToLocalStorage();
+//                 }
+//             });
+//         });
 
-        // Load tasks when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTasksFromLocalStorage();
-            initChart(); // Initialize chart after tasks are loaded
-        });
+//         // Load tasks when the page loads
+//         document.addEventListener('DOMContentLoaded', () => {
+//             loadTasksFromLocalStorage();
+//             initChart(); // Initialize chart after tasks are loaded
+//         });
