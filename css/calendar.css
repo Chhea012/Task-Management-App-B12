@@ -1,9 +1,9 @@
 
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -84,9 +84,6 @@ body {
 	display: flex;
 	justify-content: center;
 }
-#sidebar .hide{
-	display: none;
-}
 #sidebar .side-menu {
 	width: 100%;
 	margin-top: 48px;
@@ -123,17 +120,6 @@ body {
 	right: 0;
 	box-shadow: 20px -20px 0 var(--grey);
 	z-index: -1;
-
-}
-#h2{
-	font-size: 30px;
-}
-.h2{
-	color: rgb(0, 0, 0);
-}
-.h1{
-	font-size: 35px;
-	color: rgb(0, 0, 0);
 }
 #sidebar .side-menu li a {
 	width: 100%;
@@ -167,15 +153,12 @@ body {
 }
 /* SIDEBAR */
 
-.logo img{
+#sidebar img{
 	margin-left: 20%;
 	margin-top: 5%;
 }
 
-#sidebar img{
-    margin-left: 20%;
-    margin-top: 20px;
-}
+
 
 /* CONTENT */
 #content {
@@ -316,10 +299,14 @@ body {
 }
 /* NAVBAR */
 
+
+
+
+
 /* MAIN */
 #content main {
 	width: 100%;
-	padding: 20px 25px;
+	padding: 36px 24px;
 	font-family: var(--poppins);
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
@@ -540,11 +527,6 @@ body {
 	#sidebar {
 		width: 200px;
 	}
-	#sidebar img{
-        width: 40px;
-		margin-right: 10px;
-		margin-top: 20px;
-    }
 
 	#content {
 		width: calc(100% - 60px);
@@ -558,20 +540,14 @@ body {
 
 
 
+
+
+
 @media screen and (max-width: 576px) {
 	#content nav form .form-input input {
 		display: none;
 	}
-	/* .main-content{
-		width: 100px;
-	}
-	.content-flex{
-		flex-direction: column;
-		width: 100px;
-	}
-	.card-task{
-		margin-right: 50%;
-	} */
+
 	#content nav form .form-input button {
 		width: auto;
 		height: auto;
@@ -606,212 +582,209 @@ body {
 	}
 	#content main .table-data .order table {
 		min-width: 420px;
-
 	}
 	#content main .table-data .todo .todo-list {
-		min-width: 300px;
-
+		min-width: 420px;
 	}
-	.b1{
-		margin-right: 2%;
-	}
-	.bx-filter{
-		margin-right: 45%;
-	}
-	.edit-btn{
-		margin-left:100%;
-	}
-	.delete-btn{
-		margin-right: 89%;
-	}
-	
-	.hidden {
-		display: none;
-	  }
-	  
-	}
-
-.bx{
-	font-size: 20px;
 }
 
-#search{
-	width: 95%;
-	padding:6px;
-	border: 1px solid #ccc;;
-	background-color: #f4eeeebf;
-	border-radius:5px;
-	outline-color: green;
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
 }
-.save{
-	background-color: rgba(60, 148, 60, 0.945);
-	padding: 10px;
-	border: none;
+
+#calendar-container {
+	/* margin-right: 30%; */
+	width: 100%;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+}
+
+#calendar {
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.fc-toolbar-title {
+	font-size: 24px;
+	color: #3c3c3c;
+}
+
+.fc-button {
+	background-color: #007bff;
 	color: white;
-	border-radius:5px;
-}
-.main-search{
-	display: flex;
-	gap: 10px;
-}
-
-.card-task{
-	margin-top:20px;
-	width: 350px;
-	background-color: rgba(255, 255, 255, 0.199);
-	height: 70vh;
-	border-radius: 10px;
-	border: 1px solid rgb(109, 146, 137);
-}
-.card-task p{
-	padding: 10px;
-}
-
-.circle{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: red;
-	border: 1px solid green;
-	margin-left: 10px;
-
-}
-.circle-done{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: green;
-	border: 1px solid green;
-	margin-left: 10px;
-}
-.circle-progress{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: yellow;
-	border: 1px solid green;
-	margin-left: 10px;
-}
-.card-btn{
-	display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.task{
-	margin-top: 5px;
-	width: 320px;
-	margin-left: 10px;
-	background: #ffffff;
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-	border-radius: 5px;
-}
-
-
-.btn-task{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 10px;
-
-}
-.do{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #0528d3bf;
 	border: none;
-	margin-left: 5px;
-	margin-top: 5px;
-}
-.do-progress{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #d7e81cbf;
-	border: none;
-	margin-left: 5px;
-	margin-top: 5px;
-}
-.do-done{
-	width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #30e019bf;
-	border: none;
-	margin-left: 5px;
-	margin-top: 5px;
-}
-.task-flex{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
-}
-
-
-.icons{
+	padding: 10px 20px;
 	margin-right: 10px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
-.add-task-btn{
+.fc-button:hover {
+	background-color: #0056b3;
+}
+
+.fc-daygrid-day-top {
+	font-weight: bold;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#add-event-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#save-event {
+    background-color: #28a745;
+}
+
+#save-event:hover {
+    background-color: #218838;
+}
+
+
+/* Custom Event Content Styling */
+/* .custom-event-content {
+    padding: 10px;
+    background-color: #9dd3e1;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+    font-size: 1.2em; 
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event-time {
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.event-summary {
+    font-size: 1em;
+    color: #333;
+    margin-top: 5px;
+} */
+
+.hide img{
+	display: none;
+}
+/* Card style for the event input section */
+.event-card {
+    width:99%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.event-card input,
+.event-card textarea,
+.event-card button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.event-card button {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1em;
+	width: 100px;
+	margin: 10px;
+}
+
+.event-card button:hover {
+    background-color: #45a049;
+}
+
+/* Optional hover effect for the card container */
+.event-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional style for the event title */
+.event-card input[type="text"] {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Style for the event time input */
+.event-card input[type="datetime-local"] {
+    font-size: 1em;
+}
+
+/* Summary textarea styling */
+.event-card textarea {
+    font-size: 1em;
+    resize: vertical;
+}
+
+
+/* 
+.custom-event-content {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.add-task{
-	padding: 10px;
-}
-
-.content-flex{
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-	flex-wrap: wrap;
-}
-
-.add-main-task{
-	margin-top: 20px;
-}
-
-
-#task-description{
-	width: 80%;
-    height: 150px;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#taskDescription{
-	width: 80%;
-    height: 150px;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#edit-task-description{
-	width: 80%;
-    height: 150px;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#taskStatus{
-	width: 80%;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#edit-task-name{
-	width: 80%;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#task-name{
-	width: 80%;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-#swal2-title{
-	text-align: start;
-	margin-left: 40px;
-	font-size: 30px;
-	font-weight: lighter;
-}
+	flex-direction: column;
+	background: rgba(44, 59, 216, 0.9);
+	padding: 5px;
+	border-radius: 5px;
+  }
+  
+  .event-title {
+	font-weight: bold;
+  }
+  
+  .event-description {
+	font-size: 0.85em;
+	color: rgb(255, 255, 255);
+  }
+   */
