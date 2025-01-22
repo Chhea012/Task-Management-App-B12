@@ -602,6 +602,7 @@ body {
 		min-width: 420px;
 	}
 }
+
   .todo-item {
 	list-style-type: none;
 	padding: 10px;
@@ -907,4 +908,11 @@ button {
     margin-bottom: 10px;
     transition: all 0.3s;
   
+}
+
+@media screen and (max-width: 576px){
+	#main-content{
+		width: 100px;
+	
+	}
 }
