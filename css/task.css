@@ -358,22 +358,6 @@ body {
 	#content nav form.show ~ .profile {
 		display: none;
 	}
-
-	#content main .box-info {
-		grid-template-columns: 1fr;
-	}
-
-	#content main .table-data .head {
-		min-width: 420px;
-	}
-	#content main .table-data .order table {
-		min-width: 420px;
-
-	}
-	#content main .table-data .todo .todo-list {
-		min-width: 300px;
-
-	}
 	.b1{
 		margin-right: 2%;
 	}
@@ -391,14 +375,31 @@ body {
 		display: none;
 	  }
 	  
+	#main-content{
+		margin-right: 20px;
+	}
+	.card-task{
+	margin-top:20px;
+	width: 300px;
+	background-color: rgba(255, 255, 255, 0.199);
+	height: 70vh;
+	border-radius: 10px;
+	border: 1px solid rgb(109, 146, 137);
+	}
+	.swal2-popup, .swal2-modal, .swal2-show{
+		width: 340px;
+		margin-left: 60px;
+
+	}
 	}
 
 .bx{
 	font-size: 20px;
 }
 
+
 #search{
-	width: 95%;
+	width: 85%;
 	padding:6px;
 	border: 1px solid #ccc;;
 	background-color: #f4eeeebf;
@@ -419,7 +420,7 @@ body {
 
 .card-task{
 	margin-top:20px;
-	width: 350px;
+	width: 310px;
 	background-color: rgba(255, 255, 255, 0.199);
 	height: 70vh;
 	border-radius: 10px;
@@ -462,7 +463,7 @@ body {
 
 .task{
 	margin-top: 5px;
-	width: 320px;
+	width: 290px;
 	margin-left: 10px;
 	background: #ffffff;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -580,4 +581,18 @@ body {
 
 #swal2-title{
 	text-align: center;
+}
+
+.h1{
+	margin-top: 30px;	
+	font-size: 30px;
+}
+#main-content{
+	margin-left: 20px;
+}
+#search{
+	width:80% ;
+}
+.bx-menu{
+	font-size: 16px;
 }
