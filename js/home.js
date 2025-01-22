@@ -484,7 +484,7 @@ search.addEventListener("click", function () {
     if (result.isConfirmed) {
       const { name, date, status } = result.value;
 
-      // Create data object
+      // Create data objectl
       const rowData = { name, date, status };
 
       // Add row to table
@@ -592,3 +592,6 @@ function confirmLogout() {
     }
   });
 }
+
+
+const todo = document.querySelector('.tood');
