@@ -1,5 +1,3 @@
-
-
 * {
 	margin: 0;
 	padding: 0;
@@ -158,8 +156,6 @@ body {
 	margin-top: 5%;
 }
 
-
-
 /* CONTENT */
 #content {
 	position: relative;
@@ -171,9 +167,6 @@ body {
 	width: calc(100% - 60px);
 	left: 60px;
 }
-
-
-
 
 /* NAVBAR */
 #content nav {
@@ -299,10 +292,6 @@ body {
 }
 /* NAVBAR */
 
-
-
-
-
 /* MAIN */
 #content main {
 	width: 100%;
@@ -353,9 +342,6 @@ body {
 	font-weight: 500;
 }
 
-
-
-
 #content main .box-info {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -399,10 +385,6 @@ body {
 #content main .box-info li .text p {
 	color: var(--dark);	
 }
-
-
-
-
 
 #content main .table-data {
 	display: flex;
@@ -512,16 +494,9 @@ body {
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
+
 /* MAIN */
 /* CONTENT */
-
-
-
-
-
-
-
-
 
 @media screen and (max-width: 768px) {
 	#sidebar {
@@ -536,12 +511,10 @@ body {
 	#content nav .nav-link {
 		display: none;
 	}
+	
+
+
 }
-
-
-
-
-
 
 @media screen and (max-width: 576px) {
 	#content nav form .form-input input {
@@ -595,7 +568,6 @@ body {
 }
 
 #calendar-container {
-	/* margin-right: 30%; */
 	width: 100%;
 	margin: 20px auto;
 	padding: 20px;
@@ -681,36 +653,10 @@ button:hover {
 }
 
 
-/* Custom Event Content Styling */
-/* .custom-event-content {
-    padding: 10px;
-    background-color: #9dd3e1;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.event-title {
-    font-size: 1.2em; 
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.event-time {
-    font-size: 0.9em;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.event-summary {
-    font-size: 1em;
-    color: #333;
-    margin-top: 5px;
-} */
-
 .hide img{
 	display: none;
 }
-/* Card style for the event input section */
+
 .event-card {
     width:99%;
     padding: 20px;
@@ -747,44 +693,25 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Optional hover effect for the card container */
 .event-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Optional style for the event title */
 .event-card input[type="text"] {
     font-size: 1.2em;
     font-weight: bold;
 }
 
-/* Style for the event time input */
 .event-card input[type="datetime-local"] {
     font-size: 1em;
 }
 
-/* Summary textarea styling */
 .event-card textarea {
     font-size: 1em;
     resize: vertical;
 }
 
-
-/* 
-.custom-event-content {
-	display: flex;
-	flex-direction: column;
-	background: rgba(44, 59, 216, 0.9);
-	padding: 5px;
-	border-radius: 5px;
-  }
-  
-  .event-title {
-	font-weight: bold;
-  }
-  
-  .event-description {
-	font-size: 0.85em;
-	color: rgb(255, 255, 255);
-  }
-   */
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    
+   
+}
