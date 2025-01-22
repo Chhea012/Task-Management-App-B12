@@ -310,3 +310,22 @@ function loadTasksFromLocalStorage() {
 
 
 
+
+// log out 
+function confirmLogout() {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will log out to back page.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Logout!",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirect to ../index.html
+      window.location.href = "../index.html";
+    }
+  });
+}
