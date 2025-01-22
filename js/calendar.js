@@ -65,6 +65,8 @@ switchMode.addEventListener("change", function () {
   }
 });
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
   let calendarEl = document.getElementById("calendar");
   let addEventBtn = document.getElementById("add-event-btn");
