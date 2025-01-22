@@ -65,10 +65,6 @@ allValues.forEach((singleValue) => {
   }, duration);
 });
 
-
-
-
-
 // add
 const addTask = document.querySelector("#content");
 
