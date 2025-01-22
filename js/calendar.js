@@ -237,3 +237,102 @@ document.addEventListener("DOMContentLoaded", function () {
   createEventInputUI();
   checkUpcomingEvents();
 });
+
+
+// log out 
+function confirmLogout() {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You will log out to back page.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Logout!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirect to ../index.html
+      window.location.href = '../index.html';
+    }
+  });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let calendarEl = document.getElementById("calendar");
+  let addEventBtn = document.getElementById("add-event-btn");
+
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth",
+    selectable: true,
+    editable: true,
+    headerToolbar: {
+      left: "prev,next today",
+      center: "title",
+      right: window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth,timeGridWeek,timeGridDay"
+    },
+    events: loadEventsFromLocalStorage(),
+    eventClick: function (info) {
+      showEventOptions(info.event);
+    }
+  });
+
+  calendar.render();
+
+  window.addEventListener("resize", function () {
+    let newView = window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth";
+    calendar.changeView(newView);
+  });
+});
+
+/* CSS for responsiveness */
+const style = document.createElement("style");
+style.innerHTML = `
+  @media (max-width: 768px) {
+    #calendar {
+      width: 100%;
+      height: auto;
+    }
+    .fc-toolbar-title {
+      font-size: 14px !important;
+    }
+    .fc-button {
+      font-size: 12px !important;
+      padding: 5px 10px !important;
+    }
+  }
+  @media (max-width: 480px) {
+    #calendar {
+      width: 100%;
+      height: 500px;
+    }
+    .fc-toolbar-title {
+      font-size: 10px !important;
+    }
+    .fc-button {
+      font-size: 8px !important;
+      padding: 3px 6px !important;
+    }
+  }
+  @media (max-width: 360px) {
+    .fc-toolbar-title {
+      font-size: 7px !important;
+    }
+    .fc-button {
+      font-size: 5px !important;
+      padding: 1px 3px !important;
+    }
+  }
+  @media (max-width: 320px) {
+    .fc-toolbar-title {
+      font-size: 6px !important;
+    }
+    .fc-button {
+      font-size: 4px !important;
+      padding: 1px 2px !important;
+    }
+  }
+`;
+document.head.appendChild(style);

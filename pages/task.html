@@ -3,26 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="icon" href="../img/logo.png">
-    <link rel="stylesheet" href="../css/home.css" />
+    <title>Task</title>
+    <link rel="shortcut icon" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/task.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <section id="sidebar" class="logo">
-      <img src="../img/logo.png" alt="" width="100px" />
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <img src="../img/logo.png"  alt="Logo" width="100px"  />
       <ul class="side-menu top">
-        <li class="active">
+        <li>
           <a href="../pages/home.html" data-page="home">
             <i class="bx bxs-dashboard"></i>
             <span class="text">Home</span>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="../pages/task.html" data-page="task">
             <i class="bx bx-task"></i>
             <span class="text">Task</span>
@@ -60,7 +62,6 @@
         </li>
       </ul>
     </section>
-    <!-- SIDEBAR -->
 
     <!-- CONTENT -->
     <section id="content">
@@ -88,7 +89,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            style="fill: rgb(109, 106, 106); transform: ; msfilter: "
+            style="fill: rgb(109, 106, 106)"
           >
             <path
               d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"
@@ -96,44 +97,77 @@
           </svg>
         </a>
       </nav>
-      <!-- NAVBAR -->
 
-      <!-- MAIN -->
+      <!-- MAIN CONTENT -->
       <main id="main-content">
         <div class="head-title">
           <div class="left">
-            <h2 id="h2" class="h1">Home</h2>
+            <h2 id="h2" class="h1">Task</h2>
           </div>
         </div>
-
-        <ul class="box-info">
-          <li>
-            <i class="bx bx-calendar"></i>
-            <span class="text text-1"> </span>
-          </li>
-          <li>
-            <i class="bx bxs-group"></i>
-            <span class="text">
-              <h2 class="number">
-                <span class="value" data-value="300">0</span>+
-              </h2>
-              <p>Visitors</p>
-            </span>
-          </li>
-          <li>
-            <i class="bx bx-task"></i>
-            <span class="text">
-              <h2 class="number">
-                <span class="value" data-value="100">0</span>
-              </h2>
-              <p>Task</p>
-            </span>
-          </li>
+        <ul class="main-search">
+          <input type="search" id="search">
+          <button class="save" id="save">Save</button>
         </ul>
+        <!-- Main content -->
+        <div class="content-flex">
+          <div class="main-content"> 
+            <div class="card-task todo">
+              <div class="card-btn">
+                <button class="circle"></button>
+                <h5>Todo</h5>
+              </div>
+              <p>This is a todo task.</p>
+              
+              <div class="add-task">
+                <button class="add-task-btn">
+                  <i class='bx bx-plus'></i>Add item
+                </button>
+              </div>
+            </div>
+           </div>
+        
+           <div class="main-content"> 
+            <div class="card-task in-progress">
+              <div class="card-btn">
+                <button class="circle-progress"></button>
+                <h5>In progress</h5>
+              </div>
+              <p>This is a in progress task.</p>
+              
+              <div class="add-task">
+                <button class="add-task-btn">
+                  <i class='bx bx-plus'></i>Add item
+                </button>
+              </div>
+            </div>
+           </div>
+        
+           <div class="main-content"> 
+            <div class="card-task done">
+              <div class="card-btn">
+                <button class="circle-done"></button>
+                <h5>Done</h5>
+              </div>
+              <p>This is a done task.</p>
+              
+              <div class="add-task">
+                <button class="add-task-btn">
+                  <i class='bx bx-plus a'></i>Add item
+                </button>
+              </div>
+            </div>
+           </div>
+           <div class="add-main-task">
+            <button class="add-main-task-btn">
+              <i class='bx bx-plus'></i>
+            </button>
+           </div>
+        </div>
+        <!-- Chart -->
+        </div>
       </main>
-      <!-- MAIN -->
     </section>
-    <section id="content"></section>
-    <script src="../js/home.js"></script>
+    <script src="../js/task.js"></script>
   </body>
 </html>
