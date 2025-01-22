@@ -306,3 +306,7 @@ function loadTasksFromLocalStorage() {
     taskList.appendChild(taskRow);
   });
 }
+
+
+
+
