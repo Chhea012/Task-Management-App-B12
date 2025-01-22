@@ -65,6 +65,15 @@ allValues.forEach((singleValue) => {
   }, duration);
 });
 
+// // count task
+// const wtask = document.querySelector('p');
+// const countTask = document.querySelector('.count-task');
+// array.forEach(element => {
+//   let total = countTask 
+
+  
+// });
+
 // add
 const addTask = document.querySelector("#content");
 
