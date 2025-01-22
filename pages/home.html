@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link rel="icon" href="../img/logo.png">
     <link rel="stylesheet" href="../css/home.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
@@ -16,27 +17,27 @@
       <img src="../img/logo.png" alt="" width="100px" />
       <ul class="side-menu top">
         <li class="active">
-          <a href="#" data-page="home">
+          <a href="../pages/home.html" data-page="home">
             <i class="bx bxs-dashboard"></i>
             <span class="text">Home</span>
           </a>
         </li>
         <li>
-          <a href="#" data-page="task">
+          <a href="../pages/task.html" data-page="task">
             <i class="bx bx-task"></i>
             <span class="text">Task</span>
           </a>
         </li>
         <li>
-          <a href="#" data-page="personal">
+          <a href="../pages/personal.html" data-page="personal">
             <i class="bx bxs-user"></i>
             <span class="text">Personal</span>
           </a>
         </li>
         <li>
-          <a href="#" data-page="team">
-            <i class="bx bxs-group"></i>
-            <span class="text">Team</span>
+          <a href="../pages/calendar.html" data-page="calendar">
+            <i class='bx bxs-calendar'></i>
+            <span class="text">Calendar</span>
           </a>
         </li>
       </ul>
@@ -48,7 +49,11 @@
           </a>
         </li>
         <li>
-          <a href="#" class="logout">
+          <a
+            href="javascript:void(0);"
+            class="logout"
+            onclick="confirmLogout()"
+          >
             <i class="bx bxs-log-out-circle"></i>
             <span class="text">Logout</span>
           </a>

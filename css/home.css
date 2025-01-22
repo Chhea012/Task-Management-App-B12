@@ -171,7 +171,10 @@ body {
 	display: none;
 }
 
-
+/* .swal2-popup{
+	margin-right:25%;
+	width: 350px;
+} */
 /* CONTENT */
 #content {
 	position: relative;

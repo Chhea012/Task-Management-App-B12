@@ -52,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
           icon: 'success',
           confirmButtonText: 'OK'
         }).then(() => {
-          window.location.href = "pages/home.html";
+          setTimeout(() => {
+            window.location.href = "pages/home.html";
+          }, 2000); // Wait for 3 seconds
         });
         return; // Stop execution here to avoid showing an error message
       } else {
@@ -110,7 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
           icon: 'success',
           confirmButtonText: 'OK'
         }).then(() => {
-          window.location.href = "pages/home.html";
+          setTimeout(() => {
+            window.location.href = "pages/home.html";
+          }, 2000); // Wait for 3 seconds
         });
         return; // Stop execution here to avoid showing an error message
       }
