@@ -649,8 +649,8 @@ td{
     text-align: center;
 }
 #tasksListing {
-    width: 150%;
-    margin-left: 50%;
+    width: 990px;
+    margin-left: 90%;
     
 }
 .tasks-list{
@@ -842,6 +842,5 @@ h2{
 	margin-left: 20%;
 	margin-top: 15px;
 }
-	
 
 
