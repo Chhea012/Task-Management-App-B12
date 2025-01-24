@@ -578,6 +578,7 @@ body {
 .bx-menu{
 	font-size: 16px;
 }
+<<<<<<< HEAD
 .list-group{
 	background:none;
 }
@@ -681,3 +682,8 @@ body {
 
 }
 
+=======
+.add-main-task-btn{
+	display:none;
+}
+>>>>>>> 3ad68fcb530978838df4468e8eb2579b688d19ea
