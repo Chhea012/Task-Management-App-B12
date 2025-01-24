@@ -572,3 +572,6 @@ body {
 .bx-menu{
 	font-size: 16px;
 }
+.add-main-task-btn{
+	display:none;
+}

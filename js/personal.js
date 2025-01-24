@@ -84,7 +84,6 @@ const completedTasksButton = document.getElementById("completedTasks");
 
 const taskList = document.getElementById("tasksListing");
 const tableRows = taskList.getElementsByTagName("tr");
-
 addTask.addEventListener("click", () => {
   if (validateTaskInput()) {
     addTaskToTable();
@@ -97,6 +96,7 @@ addTask.addEventListener("click", () => {
   }
 });
 
+// Event listener for clearing all tasks
 clearAllButton.addEventListener("click", () => {
   clearAllTasks();
 });
@@ -106,6 +106,7 @@ let dueDate;
 let priority;
 let taskRow;
 
+// Function to validate task input
 function validateTaskInput() {
   taskName = addTaskName.value;
   dueDate = dateInput.value;
@@ -113,6 +114,7 @@ function validateTaskInput() {
   return taskName.trim() !== "" && dueDate !== "" && priority !== "";
 }
 
+// Function to add a task to the table
 function addTaskToTable() {
   taskName = addTaskName.value;
   dueDate = dateInput.value;
@@ -128,9 +130,12 @@ function addTaskToTable() {
     const isEmpty = taskList.getElementsByTagName("tr").length <= 1;
     clearAllButton.classList.toggle("d-none", isEmpty);
     allTasksButton.click();
+
+    saveTasksToLocalStorage(); // Save tasks to localStorage
   }
 }
 
+// Function to create a task row
 function createTaskRow(taskName, dueDate, priority) {
   const taskRow = document.createElement("tr");
 
@@ -169,6 +174,7 @@ function createTaskRow(taskName, dueDate, priority) {
 
   taskDescription.addEventListener("blur", () => {
     taskDescription.removeAttribute("contenteditable");
+    saveTasksToLocalStorage(); // Save tasks to localStorage after editing
   });
 
   const completeButton = document.createElement("button");
@@ -178,6 +184,7 @@ function createTaskRow(taskName, dueDate, priority) {
     taskDescription.style.textDecoration = "line-through";
     taskDescription.style.fontWeight = "bold";
     taskDescription.style.color = "green";
+    saveTasksToLocalStorage(); // Save tasks to localStorage after completing
   });
 
   const deleteButton = document.createElement("button");
@@ -190,6 +197,8 @@ function createTaskRow(taskName, dueDate, priority) {
       noneInputsContainer.style.display = "none";
       clearAllButton.classList.add("d-none");
     }
+
+    saveTasksToLocalStorage(); // Save tasks to localStorage after deleting
   });
 
   const actionsCell = document.createElement("td");
@@ -206,6 +215,7 @@ function createTaskRow(taskName, dueDate, priority) {
   return taskRow;
 }
 
+// Function to clear all tasks
 function clearAllTasks() {
   const taskList = document.getElementById("tasksListing");
   const tableRows = taskList.getElementsByTagName("tr");
@@ -215,7 +225,52 @@ function clearAllTasks() {
   }
   noneInputsContainer.style.display = "none";
   clearAllButton.classList.add("d-none");
+
+  saveTasksToLocalStorage(); // Save tasks to localStorage after clearing
 }
+
+// Function to save tasks to localStorage
+function saveTasksToLocalStorage() {
+  const tasks = [];
+  const rows = taskList.getElementsByTagName("tr");
+
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const task = {
+      name: row.cells[1].textContent,
+      dueDate: row.cells[3].textContent,
+      priority: row.cells[2].textContent,
+      status: row.cells[0].textContent,
+    };
+    tasks.push(task);
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Function to load tasks from localStorage
+function loadTasksFromLocalStorage() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  tasks.forEach((task) => {
+    const taskRow = createTaskRow(task.name, task.dueDate, task.priority);
+    if (task.status === "Completed") {
+      taskRow.cells[0].textContent = "Completed";
+      taskRow.cells[1].style.textDecoration = "line-through";
+      taskRow.cells[1].style.fontWeight = "bold";
+      taskRow.cells[1].style.color = "green";
+    }
+    taskList.appendChild(taskRow);
+  });
+
+  const isEmpty = taskList.getElementsByTagName("tr").length <= 1;
+  clearAllButton.classList.toggle("d-none", isEmpty);
+}
+
+// Load tasks from localStorage when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadTasksFromLocalStorage();
+});
 
 // Filtering tasks status
 allTasksButton.addEventListener("click", () => {
@@ -223,6 +278,7 @@ allTasksButton.addEventListener("click", () => {
   setActiveSectionButton(allTasksButton);
   clearAllButton.classList.remove("d-none");
 });
+
 function showAllTasks() {
   for (let i = 1; i < tableRows.length; i++) {
     tableRows[i].removeAttribute("hidden");
@@ -234,6 +290,7 @@ activeTasksButton.addEventListener("click", () => {
   setActiveSectionButton(activeTasksButton);
   clearAllButton.classList.add("d-none");
 });
+
 function showActiveTasks() {
   for (let i = 1; i < tableRows.length; i++) {
     if (tableRows[i].querySelector("td").textContent === "Active") {
@@ -249,6 +306,7 @@ completedTasksButton.addEventListener("click", () => {
   setActiveSectionButton(completedTasksButton);
   clearAllButton.classList.add("d-none");
 });
+
 function showCompletedTasks() {
   for (let i = 1; i < tableRows.length; i++) {
     if (tableRows[i].querySelector("td").textContent === "Completed") {
@@ -267,7 +325,7 @@ function setActiveSectionButton(activeButton) {
   activeButton.classList.add("active-section");
 }
 
-//Sorting the task's priorities
+// Sorting the task's priorities
 const sortButton = document.getElementById("sortTasks");
 sortButton.addEventListener("click", () => {
   sortTasksByPriority();
@@ -299,9 +357,11 @@ function sortTasksByPriority() {
   sortedRows.forEach((row) => {
     taskList.appendChild(row);
   });
+
+  saveTasksToLocalStorage(); // Save tasks to localStorage after sorting
 }
 
-//Sorting the task's due dates
+// Sorting the task's due dates
 const sortButtonByDate = document.getElementById("sortTasksByDate");
 sortButtonByDate.addEventListener("click", () => {
   sortTasksByDate();
@@ -328,82 +388,134 @@ function sortTasksByDate() {
   sortedRows.forEach((row) => {
     taskList.appendChild(row);
   });
+
+  saveTasksToLocalStorage(); // Save tasks to localStorage after sorting
 }
+// Add this to include the Chart.js library
+// <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-document.addEventListener("DOMContentLoaded", () => {
-  const table = document.getElementById("tasksListing");
+// Define a variable for the chart
+let taskStatusChart;
 
-  table.addEventListener("click", (event) => {
-    const button = event.target;
-    const row = button.closest("tr");
+// Function to update the pie chart
+function updateTaskStatusChart() {
+  const rows = taskList.getElementsByTagName("tr");
+  let activeCount = 0;
+  let completedCount = 0;
 
-    if (button.classList.contains("edit-btn")) {
-      toggleEdit(row, true);
-    } else if (button.classList.contains("save-btn")) {
-      toggleEdit(row, false, true);
-    } else if (button.classList.contains("cancel-btn")) {
-      toggleEdit(row, false, false);
+  // Calculate the count of "Active" and "Completed" tasks
+  for (let i = 1; i < rows.length; i++) {
+    const status = rows[i].cells[0].textContent;
+    if (status === "Active") {
+      activeCount++;
+    } else if (status === "Completed") {
+      completedCount++;
     }
-  });
+  }
 
-  function toggleEdit(row, isEditing, saveChanges = false) {
-    const cells = row.querySelectorAll("td");
-    cells.forEach((cell, index) => {
-      if (index < cells.length - 1) {
-        // Skip the last column (Actions)
-        if (isEditing) {
-          const value = cell.innerText.trim();
-          cell.innerHTML = `<input type="text" value="${value}" style="width: 100%;">`;
-        } else if (saveChanges) {
-          const input = cell.querySelector("input");
-          cell.innerText = input.value;
-        } else {
-          const input = cell.querySelector("input");
-          cell.innerText = input.defaultValue;
-        }
-      }
+  const data = {
+    labels: ["Active", "Completed"],
+    datasets: [
+      {
+        data: [activeCount, completedCount],
+        backgroundColor: ["#36A2EB", "#4CAF50"], // Colors for "Active" and "Completed"
+      },
+    ],
+  };
+
+  if (taskStatusChart) {
+    // Update the chart data if it already exists
+    taskStatusChart.data = data;
+    taskStatusChart.update();
+  } else {
+    // Create a new chart instance if it doesn't exist
+    const ctx = document.getElementById("taskStatusChart").getContext("2d");
+    taskStatusChart = new Chart(ctx, {
+      type: "pie",
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+        },
+      },
     });
   }
+}
+
+// Modify saveTasksToLocalStorage to update the chart after saving
+function saveTasksToLocalStorage() {
+  const tasks = [];
+  const rows = taskList.getElementsByTagName("tr");
+
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const task = {
+      name: row.cells[1].textContent,
+      dueDate: row.cells[3].textContent,
+      priority: row.cells[2].textContent,
+      status: row.cells[0].textContent,
+    };
+    tasks.push(task);
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  updateTaskStatusChart(); // Update chart after saving tasks
+}
+
+// Update the loadTasksFromLocalStorage function to initialize the chart
+function loadTasksFromLocalStorage() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  tasks.forEach((task) => {
+    const taskRow = createTaskRow(task.name, task.dueDate, task.priority);
+    if (task.status === "Completed") {
+      taskRow.cells[0].textContent = "Completed";
+      taskRow.cells[1].style.textDecoration = "line-through";
+      taskRow.cells[1].style.fontWeight = "bold";
+      taskRow.cells[1].style.color = "green";
+    }
+    taskList.appendChild(taskRow);
+  });
+
+  const isEmpty = taskList.getElementsByTagName("tr").length <= 1;
+  clearAllButton.classList.toggle("d-none", isEmpty);
+
+  updateTaskStatusChart(); // Initialize the chart with loaded tasks
+}
+
+// Add a `<canvas>` element to your HTML for the chart
+// <canvas id="taskStatusChart" width="400" height="200"></canvas>
+
+// Ensure the chart is updated after any task-related changes
+clearAllButton.addEventListener("click", () => {
+  clearAllTasks();
+  updateTaskStatusChart();
 });
 
-function toggleEdit() {
-    const rows = document.querySelectorAll('#taskTable tbody tr');
-    const isEditing = rows[0].querySelector('td').contentEditable === "true";
-    
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.contentEditable = !isEditing; // Toggle editability
-        });
-    });
-    
-    document.querySelector('.edit-button').style.display = isEditing ? 'inline' : 'none';
-    document.querySelector('.save-button').style.display = isEditing ? 'none' : 'inline';
-}
+allTasksButton.addEventListener("click", () => {
+  showAllTasks();
+  setActiveSectionButton(allTasksButton);
+  clearAllButton.classList.remove("d-none");
+  updateTaskStatusChart();
+});
 
-function saveChanges() {
-    const rows = document.querySelectorAll('#taskTable tbody tr');
-    
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.contentEditable = "false"; // Set all cells to non-editable
-        });
-    });
-    
-    document.querySelector('.edit-button').style.display = 'inline';
-    document.querySelector('.save-button').style.display = 'none';
-}
+activeTasksButton.addEventListener("click", () => {
+  showActiveTasks();
+  setActiveSectionButton(activeTasksButton);
+  clearAllButton.classList.add("d-none");
+  updateTaskStatusChart();
+});
 
-function deleteRow(button) {
-    const row = button.parentElement.parentElement;
-    row.parentElement.removeChild(row);
-}
-
-
-
-
-
+completedTasksButton.addEventListener("click", () => {
+  showCompletedTasks();
+  setActiveSectionButton(completedTasksButton);
+  clearAllButton.classList.add("d-none");
+  updateTaskStatusChart();
+});
+window.updateChat = updateChat;
 
 
 function confirmLogout() {

@@ -675,8 +675,9 @@ td{
 }
 
 #taskName {
-    width: 650px;
+    width: 480px;
     padding: 20px;
+	margin-right: 10px;
     font-size: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -729,7 +730,7 @@ td{
     margin-left: 2px;
 }
 #sortTasks {
-    margin-left: 160px;
+    margin-left: 85px;
 }
 #sortTasksByDate {
     margin-left: 0px;
@@ -739,10 +740,10 @@ td{
     width: 10%;
     font-size: 15px;
     border-radius: 10px;
-	margin-left: 45px;
+	margin-left: 70px;
     position: relative;
-    bottom: 80px;
-    left: 460px;
+    top: 20px;
+    left: 440px;
 } */
 .none-inputs{
     margin-bottom: 100px;
@@ -824,3 +825,23 @@ button{
     background-color: #4ba08b;
     color: #FFFFFF; 
 }
+#taskName {
+	outline-color: #a1d0cc;
+}
+h2{
+	text-align: center;
+	margin-top: 20px;
+}
+#chat-container{
+	display: flex;
+	justify-content: center;
+	width: 55%;
+	height: 50%;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+	margin-left: 20%;
+	margin-top: 15px;
+}
+	
+
+
