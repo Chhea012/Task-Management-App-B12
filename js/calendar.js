@@ -67,9 +67,12 @@ switchMode.addEventListener("change", function () {
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
   let calendarEl = document.getElementById("calendar");
   let addEventBtn = document.getElementById("add-event-btn");
+  let viewAllBtn = document.getElementById("view-all-even");
+  let buttonContainer = document.querySelector(".button");
 
   let calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
@@ -88,29 +91,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
   calendar.render();
 
+  let eventInputContainer = document.createElement("div");
+  eventInputContainer.classList.add("event-card");
+  eventInputContainer.style.display = "none";
+
+  let titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.placeholder = "Event Title";
+
+  let dateInput = document.createElement("input");
+  dateInput.type = "datetime-local";
+
+  let summaryInput = document.createElement("textarea");
+  summaryInput.placeholder = "Event Summary (Optional)";
+  summaryInput.rows = 4;
+
+  let saveButton = document.createElement("button");
+  saveButton.innerText = "Save";
+
+  let cancelButton = document.createElement("button");
+  cancelButton.innerText = "Cancel";
+
+  eventInputContainer.append(titleInput, dateInput, summaryInput, saveButton, cancelButton);
+  buttonContainer.after(eventInputContainer);
+
+  addEventBtn.addEventListener("click", () => {
+    eventInputContainer.style.display = eventInputContainer.style.display === "none" ? "inline-block" : "none";
+  });
+
+  cancelButton.addEventListener("click", () => {
+    eventInputContainer.style.display = "none";
+  });
+
+  saveButton.addEventListener("click", () => saveNewEvent(titleInput, dateInput, summaryInput, eventInputContainer));
+
+  function saveNewEvent(titleInput, dateInput, summaryInput, container) {
+    let title = titleInput.value;
+    let date = dateInput.value;
+    let summary = summaryInput.value;
+
+    if (title && date) {
+      let eventDate = new Date(date);
+      let newEvent = {
+        id: Date.now().toString(),
+        title,
+        start: eventDate.toISOString(),
+        description: summary || ""
+      };
+
+      calendar.addEvent({ ...newEvent, allDay: false });
+      saveEventToLocalStorage(newEvent);
+      checkEventTime(newEvent);
+      
+      container.style.display = "none";
+      titleInput.value = "";
+      dateInput.value = "";
+      summaryInput.value = "";
+    } else {
+      alert("Please enter a title and date.");
+    }
+  }
+
   function showEventOptions(event) {
     Swal.fire({
-      title: "Edit Event",
-      html: `
-        <input type="text" id="edit-title" class="swal2-input" value="${event.title}" />
-        <textarea id="edit-summary" class="swal2-textarea">${event.extendedProps.description || ''}</textarea>
-      `,
+      title: event.title,
+      text: `Description: ${event.extendedProps.description || "No description"}\nDate: ${new Date(event.start).toLocaleString()}`,
+      icon: "info",
       showCancelButton: true,
-      showDenyButton: true,
-      confirmButtonText: "Save",
-      denyButtonText: "Delete",
-      cancelButtonText: "Cancel",
-      preConfirm: () => {
-        let newTitle = document.getElementById("edit-title").value;
-        let newSummary = document.getElementById("edit-summary").value;
-        
-        event.setProp("title", newTitle);
-        event.setExtendedProp("description", newSummary);
-        
-        updateEventInLocalStorage(event);
-      }
+      confirmButtonText: "Delete Event",
+      cancelButtonText: "Close"
     }).then((result) => {
-      if (result.isDenied) {
+      if (result.isConfirmed) {
         confirmDeleteEvent(event);
       }
     });
@@ -133,18 +184,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function updateEventInLocalStorage(event) {
+  function saveEventToLocalStorage(event) {
     let events = loadEventsFromLocalStorage();
-    let index = events.findIndex(e => e.id === event.id);
-    
-    if (index !== -1) {
-      events[index] = { ...events[index], title: event.title, description: event.extendedProps.description };
-      localStorage.setItem("calendarEvents", JSON.stringify(events));
-    }
-  }
-
-  function deleteEventFromLocalStorage(event) {
-    let events = loadEventsFromLocalStorage().filter(e => e.id !== event.id);
+    events.push(event);
     localStorage.setItem("calendarEvents", JSON.stringify(events));
   }
 
@@ -152,67 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return JSON.parse(localStorage.getItem("calendarEvents")) || [];
   }
 
-  function saveEventToLocalStorage(event) {
-    let events = loadEventsFromLocalStorage();
-    events.push(event);
+  function deleteEventFromLocalStorage(event) {
+    let events = loadEventsFromLocalStorage().filter(e => e.id !== event.id);
     localStorage.setItem("calendarEvents", JSON.stringify(events));
-  }
-
-  function createEventInputUI() {
-    let eventInputContainer = document.createElement("div");
-    eventInputContainer.classList.add("event-card");
-    eventInputContainer.style.display = "none";
-
-    let titleInput = document.createElement("input");
-    titleInput.type = "text";
-    titleInput.placeholder = "Event Title";
-
-    let dateInput = document.createElement("input");
-    dateInput.type = "datetime-local";
-
-    let summaryInput = document.createElement("textarea");
-    summaryInput.placeholder = "Event Summary (Optional)";
-    summaryInput.rows = 4;
-
-    let saveButton = document.createElement("button");
-    saveButton.innerText = "Save";
-    
-    let cancelButton = document.createElement("button");
-    cancelButton.innerText = "Cancel";
-    
-    eventInputContainer.append(titleInput, dateInput, summaryInput, saveButton, cancelButton);
-    addEventBtn.after(eventInputContainer);
-
-    addEventBtn.addEventListener("click", () => eventInputContainer.style.display = "inline-block");
-    cancelButton.addEventListener("click", () => eventInputContainer.style.display = "none");
-    saveButton.addEventListener("click", () => saveNewEvent(titleInput, dateInput, summaryInput, eventInputContainer));
-  }
-
-  function saveNewEvent(titleInput, dateInput, summaryInput, container) {
-    let title = titleInput.value;
-    let date = dateInput.value;
-    let summary = summaryInput.value;
-
-    if (title && date) {
-      let eventDate = new Date(date);
-      let newEvent = {
-        id: Date.now().toString(),
-        title,
-        start: eventDate.toISOString(),
-        description: summary || ""
-      };
-
-      calendar.addEvent({ ...newEvent, allDay: false });
-      saveEventToLocalStorage(newEvent);
-      checkEventTime(newEvent);
-
-      container.style.display = "none";
-      titleInput.value = "";
-      dateInput.value = "";
-      summaryInput.value = "";
-    } else {
-      alert("Please enter a title and date.");
-    }
   }
 
   function checkEventTime(event) {
@@ -236,58 +220,87 @@ document.addEventListener("DOMContentLoaded", function () {
     loadEventsFromLocalStorage().forEach(checkEventTime);
   }
 
-  createEventInputUI();
   checkUpcomingEvents();
 });
 
 
-// log out 
-function confirmLogout() {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You will log out to back page.",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Logout!',
-    cancelButtonText: 'Cancel'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Redirect to ../index.html
-      window.location.href = '../index.html';
-    }
-  });
-}
 
 
 
 document.addEventListener("DOMContentLoaded", function () {
   let calendarEl = document.getElementById("calendar");
   let addEventBtn = document.getElementById("add-event-btn");
+  let viewAllBtn = document.getElementById("view-all-even"); // Ensure correct ID
+  let buttonContainer = document.querySelector(".button");
 
-  let calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth",
-    selectable: true,
-    editable: true,
-    headerToolbar: {
-      left: "prev,next today",
-      center: "title",
-      right: window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth,timeGridWeek,timeGridDay"
-    },
-    events: loadEventsFromLocalStorage(),
-    eventClick: function (info) {
-      showEventOptions(info.event);
+  let eventTableContainer = document.createElement("div");
+  eventTableContainer.id = "event-table-container";
+  eventTableContainer.style.display = "none"; // Initially hidden
+  if (buttonContainer) {
+    buttonContainer.after(eventTableContainer);
+  } else {
+    console.error("Button container not found!");
+  }
+
+  viewAllBtn?.addEventListener("click", function () {
+    toggleEventTable();
+  });
+
+  function toggleEventTable() {
+    if (eventTableContainer.style.display === "block") {
+      eventTableContainer.style.display = "none"; // Hide table
+    } else {
+      displayAllEvents(); // Show and populate table
     }
-  });
+  }
 
-  calendar.render();
+  function displayAllEvents() {
+    let events = JSON.parse(localStorage.getItem("calendarEvents")) || [];
+    eventTableContainer.innerHTML = "";
 
-  window.addEventListener("resize", function () {
-    let newView = window.innerWidth < 768 ? "timeGridDay" : "dayGridMonth";
-    calendar.changeView(newView);
-  });
+    if (events.length === 0) {
+      eventTableContainer.innerHTML = "<p>No events scheduled.</p>";
+      eventTableContainer.style.display = "block";
+      return;
+    }
+
+    let table = document.createElement("table");
+    table.border = "1";
+
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+    ["Title", "Date & Time", "Description"].forEach(text => {
+      let th = document.createElement("th");
+      th.textContent = text;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    let tbody = document.createElement("tbody");
+    events.forEach(event => {
+      let row = document.createElement("tr");
+      let titleCell = document.createElement("td");
+      titleCell.textContent = event.title;
+      let dateCell = document.createElement("td");
+      dateCell.textContent = new Date(event.start).toLocaleString();
+      let descriptionCell = document.createElement("td");
+      descriptionCell.textContent = event.description || "-";
+
+      row.appendChild(titleCell);
+      row.appendChild(dateCell);
+      row.appendChild(descriptionCell);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+
+    eventTableContainer.appendChild(table);
+    eventTableContainer.style.display = "block";
+  }
 });
+
+
+
 
 /* CSS for responsiveness */
 const style = document.createElement("style");
