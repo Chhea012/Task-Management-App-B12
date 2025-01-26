@@ -393,6 +393,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
 }
 #content main .box-info li:nth-child(1) .bx {
 	background: var(--light-blue);
@@ -401,10 +402,6 @@ body {
 #content main .box-info li:nth-child(2) .bx {
 	background: var(--light-yellow);
 	color: var(--yellow);
-}
-#content main .box-info li:nth-child(3) .bx {
-	background: var(--light-orange);
-	color: var(--orange);
 }
 #content main .box-info li .text h3 {
 	font-size: 24px;
@@ -561,6 +558,33 @@ body {
 @media screen and (max-width: 576px) {
 	#content nav form .form-input input {
 		display: none;
+	}
+	.bx-filter{
+		margin-right: 45%;
+	}
+	.todo-container{
+		width: 230px;
+	}
+	.swal2-popup, .swal2-modal, .swal2-show{
+		width: 250px;
+		margin-left: 60px;
+	}
+	#swal2-title{
+		font-size: medium;
+		margin-top: 18px;
+		
+	}
+	#name, #date{
+		margin-top: 10px;
+		width: 170px;
+		margin-left: 11px;
+		border: 1px solid black;
+	}
+	#status{
+		width: 130px;
+		margin-left: 15px;
+		margin-right: 15px;
+		font-size: medium;
 	}
 
 	#content nav form .form-input button {
@@ -908,4 +932,17 @@ button {
     margin-bottom: 10px;
     transition: all 0.3s;
   
+}
+
+.bx .bx-calendar, .bx .bx-task{
+	width: 50px;
+
+}
+
+
+#task{
+	border-radius: 20px;
+	border: 1px solid;
+	margin-left: 430px;
+	width: 100px;
 }
