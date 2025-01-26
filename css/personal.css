@@ -56,7 +56,7 @@ body {
 	font-family: var(--lato);
 	transition: .3s ease;
 	overflow-x: hidden;
-	scrollbar-width: none;
+	/* scrollbar-width: none; */
 }
 #sidebar::--webkit-scrollbar {
 	display: none;
@@ -368,9 +368,6 @@ body {
 	font-weight: 500;
 }
 
-
-
-
 #content main .box-info {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -414,10 +411,6 @@ body {
 #content main .box-info li .text p {
 	color: var(--dark);	
 }
-
-
-
-
 
 #content main .table-data {
 	display: flex;
@@ -586,7 +579,11 @@ body {
 	#content nav form.show ~ .profile {
 		display: none;
 	}
-
+	#sortTasks {
+		display: none;
+	}#sortTasksByDate{
+		display: none;
+	}
 	#content main .box-info {
 		grid-template-columns: 1fr;
 	}
@@ -649,8 +646,8 @@ td{
     text-align: center;
 }
 #tasksListing {
-    width: 150%;
-    margin-left: 50%;
+    width: 170%;
+    margin-left: 460px;
     
 }
 .tasks-list{
@@ -675,7 +672,7 @@ td{
 }
 
 #taskName {
-    width: 480px;
+    width: 610px;
     padding: 20px;
 	margin-right: 10px;
     font-size: 20px;
@@ -730,10 +727,10 @@ td{
     margin-left: 2px;
 }
 #sortTasks {
-    margin-left: 85px;
+    margin-left: 90px;
 }
 #sortTasksByDate {
-    margin-left: 0px;
+    margin-left: 2px;
 }
 #none {
     padding: 10px;
@@ -743,7 +740,7 @@ td{
 	margin-left: 70px;
     position: relative;
     top: 20px;
-    left: 440px;
+    left: 460px;
 } */
 .none-inputs{
     margin-bottom: 100px;
@@ -839,9 +836,124 @@ h2{
 	height: 50%;
 	background-color: #f2f2f2;
 	border-radius: 10px;
-	margin-left: 20%;
+	margin-left: 23%;
 	margin-top: 15px;
 }
+
+
+@media screen and (max-width: 576px) {
+		.left {
+			font-size: 10px;
+		}
+		.title {
+			font-size: 10px;
+		}
+		.h1 {
+			font-size: 20px;
+		}
+		#taskName {
+			width: 50%;
+			font-size: 10px;
+			padding: 5px;
+			margin-bottom: 5px;
+			margin-left: 1px;
+		}
+		.none-inputs, .d-none{
+			width: 100%;
+		}
+		#taskDueDate  {
+			width: 10%;
+			font-size: 10px;
+			padding: 5px;
+			margin-bottom: 5px;
+			margin-left: 2px;
+		}
+		#priority {
+			width: 10%;
+			font-size: 5px;
+			height: 25px;
+			margin-bottom: 25px;
+			margin-left: 5px;
+			padding: 10px;
+		}
+		#addTask {
+			width: 10%;
+			font-size: 6px;
+			height: 25px;
+			padding: 5px;
+			margin-left: 5px;
+		}
+		.high {
+			font-size: 5px;
+		}
+		.low {
+			font-size: 5px;
+		}
+		.pri {
+			font-size: 5px;
+		}
+		.filter {
+			font-size: 5px;
+		}
+		#allTasks {
+			font-size: 5px;
+			margin-left: 0px;
+		}
+		#activeTasks {
+			font-size: 5px;
+		}
+		#completedTasks {
+			font-size: 5px;
+		}
+		#sortTasks {
+			font-size: 5px;
+			width: 70%;
+			margin-left: 2px;
+			margin-top: 50px;
+		} 
+		#sortTasksByDate {
+			font-size: 5px;
+			width: 80%;
+			margin-right: 0px;
+			margin-top: 50px;
+		} 
+		.status-filter {
+			margin-top: 50px;
+			font-size: 5px;
+			height: 30px;
+			width: 15px;
+		}
+	
+		#none {
+			width: 20%;
+			font-size: 8px;
+			justify-content: center;
+			text-align: center;
+			margin-left: 20px;
+			position: relative;
+			left: 95px;
+			padding: 10px;	
+		  }	
+		
+		  .status-filter {
+			margin-top: 20px;
+			font-size: 12px;
+			height: 35px;
+			width: 80px;
+		  }
+		
+		  table {
+			font-size: 8px;
+			width: 100%;
+			padding: 20px;
+			margin-right: 270px;
+		  }
+	}
+	
+	
+
+
+
 	
 
 
