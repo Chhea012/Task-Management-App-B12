@@ -603,316 +603,114 @@ body {
 	}
 }
 
-  .todo-item {
-	list-style-type: none;
-	padding: 10px;
-	background-color: #f4f4f4;
-	margin-bottom: 10px;
-	border-radius: 5px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	transition: background-color 0.3s ease;
-  }
-  
-  .todo-item:hover {
-	background-color: #e2e2e2;
-  }
-  
-  /* Styles for completed tasks (strikethrough effect) */
-  .todo-item.completed {
-	text-decoration: line-through;
-	background-color: #d3ffd3;
-  }
-  
-  /* Styles for buttons inside todo items */
-  .remove-btn, .edit-btn {
-	background-color: red;
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	cursor: pointer;
-	border-radius: 4px;
-	margin-left: 10px;
-  }
-  
-  .remove-btn:hover, .edit-btn:hover {
-	background-color: darkred;
-  }
-  
-  /* Edit button specific styles */
-  .edit-btn {
-	background-color: #007BFF;
-  }
-  
-  .edit-btn:hover {
-	background-color: #0056b3;
-  }
-  
-  /* Add some padding to the todo list itself */
-  .todo-list {
-	padding: 0;
-  }
-    */
 
 
 
-/* Container for the task list */
-.todo-list {
-    width: 100%;
-    max-width: 400px;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Task item styling */
-.todo-item {
-    background-color: #d51717;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    transition: background-color 0.3s ease;
-}
-
-.todo-item:hover {
-    background-color: #f4f4f4;
-}
-
-/* Buttons styling */
-button {
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-/* Edit button styling */
-.edit-btn {
-	margin-left: 53%;
-    background-color: #4CAF50;
-    color: white;
-}
-
-.edit-btn:hover {
-    background-color: #45a049;
-}
-
-/* Delete button styling */
-.delete-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-.delete-btn:hover {
-    background-color: #e53935;
-}
-
-/* Add task button styling */
-.add-btn {
-    background-color: #008CBA;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.add-btn:hover {
-    background-color: #007b9f;
-}
-
-/* Input field styling */
-.todo-input {
-    padding: 8px;
-    width: 80%;
-    margin-right: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-/* Container for adding a task */
-.todo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-/* Hover effect for task items */
-.todo-item:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Modal (optional, for editing tasks) */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.modal-content input {
+#size {
     margin-bottom: 15px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
-.modal-content button {
-    padding: 8px;
-    margin: 5px;
-    cursor: pointer;
-    background-color: #4CAF50;
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    padding: 80px 50px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #555;
+    /* max-width: 600px; */
+    margin: 25px auto;
+}
+
+.hero-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: #ff6b35;
     color: white;
-    border-radius: 5px;
-    border: none;
 }
 
-.modal-content button:hover {
-    background-color: #45a049;
+.btn-secondary {
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid #ddd;
 }
 
-
-.todo-list{
-	height: 180px;
-	overflow-x: hidden;
-	overflow-y: scroll;
+.btn-primary:hover {
+    background-color: #ff5722;
 }
 
+.btn-secondary:hover {
+    background-color: #f1f1f1;
+}
 
-  .todo-list {
+.hero-image img{
 	width: 400px;
-	margin-top: 20px;
-  }
-  .b1:hover {
-	color: #ff0000;
-	font-size: 18px;
-  }
-  
-  /* Container for task input and button */
-  .todo-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 20px;
-	padding: 20px;
-	background-color: #ffffff;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-  }
-  
-
-  .todo-input, .date-input {
-	padding: 10px;
-	width: 100%;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	font-size: 16px;
-	margin-bottom: 10px;
-	transition: all 0.3s;
-  }
-  
-  .todo-input:focus, .date-input:focus {
-	outline: none;
-	border-color: #4CAF50;
-  }
-  
-  /* Add Button Style */
-  .add-btn {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
-	transition: all 0.3s;
-  }
-  
-  .add-btn:hover {
-	background-color: #45a049;
-  }
-  
-  /* Task Item Styling */
-  .todo-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #fff;
-	margin: 10px 0;
-	padding: 15px;
-	border-radius: 5px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .task-content {
-	font-size: 18px;
-	font-weight: bold;
-	color: #333;
-  }
-  
-  .task-date {
-	font-size: 14px;
-	color: #777;
-  }
-  
-  .delete-btn {
-	background-color: #f44336;
-	color: white;
-	border: none;
-	padding: 8px 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 14px;
-  }
-  
-  .delete-btn:hover {
-	background-color: #e53935;
-  }
-
-.swal2-input{
-	padding: 10px;
-    width: 350px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    transition: all 0.3s;
-  
 }
 
-@media screen and (max-width: 576px){
-	#main-content{
-		width: 100px;
-	
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 20px 30px;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width: 599px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 20px;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .hero p {
+        font-size: 0.9rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn {
+        width: 100%;
+    }
+	.hero-image{
+		display: none;
 	}
 }
