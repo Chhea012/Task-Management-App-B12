@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: var(--lato);
 }
 
 a {
@@ -568,6 +569,7 @@ body {
 }
 
 #calendar-container {
+	/* margin-right: 30%; */
 	width: 100%;
 	margin: 20px auto;
 	padding: 20px;
@@ -656,7 +658,7 @@ button:hover {
 .hide img{
 	display: none;
 }
-
+/* Card style for the event input section */
 .event-card {
     width:99%;
     padding: 20px;
@@ -693,25 +695,112 @@ button:hover {
     background-color: #45a049;
 }
 
+/* Optional hover effect for the card container */
 .event-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Optional style for the event title */
 .event-card input[type="text"] {
     font-size: 1.2em;
     font-weight: bold;
 }
 
+/* Style for the event time input */
 .event-card input[type="datetime-local"] {
     font-size: 1em;
 }
 
+/* Summary textarea styling */
 .event-card textarea {
     font-size: 1em;
     resize: vertical;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
-    
-   
+
+.button{
+	display: flex;
+	justify-content: space-between;
 }
+#view-all-even{
+	margin-top: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+
+
+
+
+/* Style for the button container */
+.btn {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 15px;
+  }
+  
+  /* Style for buttons */
+  .btn button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background 0.3s ease;
+  }
+  
+  .btn button:hover {
+	background-color: #0056b3;
+  }
+  
+  /* Table container styling */
+  #event-table-container {
+	display: none; /* Initially hidden */
+	margin: 20px auto;
+	width: 100%;
+	padding: 15px;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table styling */
+  #event-table-container table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+  }
+  
+  #event-table-container th,
+  #event-table-container td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: left;
+  }
+  
+  /* Table header */
+  #event-table-container th {
+	background-color: #007bff;
+	color: white;
+	font-weight: bold;
+  }
+  
+  /* Alternate row colors */
+  #event-table-container tr:nth-child(even) {
+	background-color: #f9f9f9;
+  }
+  
+  /* Message when no events */
+  #event-table-container p {
+	text-align: center;
+	font-size: 16px;
+	color: #555;
+  }
+  

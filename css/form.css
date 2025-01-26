@@ -135,7 +135,7 @@
     margin: 0 0.45rem;
     color: #333;
     border-radius: 50%;
-    border: 1px solid #333;
+    border:none;
     text-decoration: none;
     font-size: 1.1rem;
     transition: 0.3s;
@@ -147,6 +147,7 @@
   .social-icon:hover {
     color: #4481eb;
     border-color: #4481eb;
+    border: 1px solid #4481eb;
   }
   
   .input{

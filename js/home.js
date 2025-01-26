@@ -15,14 +15,50 @@ allSideMenu.forEach((item) => {
   });
 });
 
+
+
 // TOGGLE SIDEBAR
 const menuBar = document.querySelector("#content nav .bx.bx-menu");
 const sidebar = document.getElementById("sidebar");
-const imglogo = document.querySelector('img');
+const logo= document.querySelector("img");
 
 menuBar.addEventListener("click", function () {
   sidebar.classList.toggle("hide");
-  imglogo.classList.toggle("hide");
+  logo.classList.toggle("hide");
+});
+
+const searchButton = document.querySelector(
+  "#content nav form .form-input button"
+);
+const searchButtonIcon = document.querySelector(
+  "#content nav form .form-input button .bx"
+);
+const searchForm = document.querySelector("#content nav form");
+
+searchButton.addEventListener("click", function (e) {
+  if (window.innerWidth < 576) {
+    e.preventDefault();
+    searchForm.classList.toggle("show");
+    if (searchForm.classList.contains("show")) {
+      searchButtonIcon.classList.replace("bx-search", "bx-x");
+    } else {
+      searchButtonIcon.classList.replace("bx-x", "bx-search");
+    }
+  }
+});
+
+if (window.innerWidth < 768) {
+  sidebar.classList.add("hide");
+} else if (window.innerWidth > 576) {
+  searchButtonIcon.classList.replace("bx-x", "bx-search");
+  searchForm.classList.remove("show");
+}
+
+window.addEventListener("resize", function () {
+  if (this.innerWidth > 576) {
+    searchButtonIcon.classList.replace("bx-x", "bx-search");
+    searchForm.classList.remove("show");
+  }
 });
 
 const switchMode = document.getElementById("switch-mode");
@@ -34,6 +70,7 @@ switchMode.addEventListener("change", function () {
     document.body.classList.remove("dark");
   }
 });
+<<<<<<< HEAD
 // get date
 const startDate = document.querySelector(".text-1");
 const currentDate = new Date();
@@ -67,4 +104,26 @@ startDate.appendChild(paragraph);
 // Task statistics summary: Completed vs Pending Tasks
 
 // Task statistics summary: Completed vs Pending Tasks
+=======
+function confirmLogout() {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You will log out to back page.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Logout!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirect to ../index.html
+      window.location.href = '../index.html';
+    }
+  });
+}
+
+
+
+>>>>>>> 51e7bb5087678bf93c8c0966034747880a6b494b
 
