@@ -5,23 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Management</title>
     <link rel="icon" href="../img/logo.png">
-    <link rel="stylesheet" href="../css/personal.css" />
+    <link rel="stylesheet" href="../css/home.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script
-    src="https://kit.fontawesome.com/749b88acba.js"
-    crossorigin="anonymous"
-  ></script>
   </head>
   <body>
     <section id="sidebar" class="logo">
       <img src="../img/logo.png" alt="" width="100px" />
       <ul class="side-menu top">
-        <li>
+        <li class="active">
           <a href="../pages/home.html" data-page="home">
             <i class="bx bxs-dashboard"></i>
             <span class="text">Home</span>
@@ -33,7 +28,7 @@
             <span class="text">Task</span>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a href="../pages/personal.html" data-page="personal">
             <i class="bx bxs-user"></i>
             <span class="text">Personal</span>
@@ -93,7 +88,7 @@
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            style="fill: rgb(109, 106, 106); transform: ; msfilter: "
+            style="fill: rgb(109, 106, 106); transform: msfilter "
           >
             <path
               d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"
@@ -101,81 +96,33 @@
           </svg>
         </a>
       </nav>
-      <!-- NAVBAR -->
+      
 
-      <!-- MAIN -->
-      <main id="main-content">
-        <div class="head-title">
-          <div class="left">
-            <h2 id="h2" class="h1">Personal</h2>
-          </div>
-        </div>
-        <div class="title">
-            <h2>My Tasks</h2>
-          </div>
+      <main>
+
+        <h1 id="size">Home</h1>
   
-          <p class="alert d-none">All inputs must be filled</p>
-  
-          <div class="inputs">
-            <label for="taskName" class="sr-only"></label>
-            <input
-              type="text"
-              id="taskName"
-              class="task-name-input"
-              placeholder="Write a task"
-            />
-            <label for="taskDueDate" class="sr-only"></label>
-            <input type="date" id="taskDueDate" class="task-due-date" />
-            <label for="priority" class="sr-only"></label>
-            <select id="priority" class="priority-input">
-              <option value="" disabled selected class="pri">Priority</option>
-              <option value="High Priority" class="high">High Priority</option>
-              <option value="Low Priority" class="low">Low Priority</option>
-            </select>
-            <button class="btn add-tasks-btn" id="addTask">Add</button>
-          </div>
-          <div class="none-inputs d-none">
-            <div class="filter">
-              <div class="status-filter">
-                <button class="btn" id="allTasks">All Tasks</button>
-                <button class="btn" id="activeTasks">Active Tasks</button>
-                <button class="btn" id="completedTasks">Completed Tasks</button>
-              </div>
-              <div class="sorting-filter">
-                <button class="btn sort-btn" id="sortTasks">
-                  Sort by Priority
-                </button>
-                <button class="btn sort-btn" id="sortTasksByDate">
-                  Sort by Due Date
-                </button>
-              </div>
-            </div>
-            <div class="tasks-list">
-              <table class="tasks" id="tasksListing">
-                <tr>
-                  <th class="column">Status</th>
-                  <th class="column">Tasks</th>
-                  <th class="column">Priority</th>
-                  <th class="column">Due Date</th>
-                  <th class="column">Actions</th>
-                </tr>
-              </table>
+        <section class="hero">
+          <div class="hero-content">
+            <h1>Manage Your Task</h1>
+            <p>Encan boards, lists, and cards enable you to organize and prioritize your projects in a fun, 
+              flexible, and rewarding way. Let's started 😊
+            </p>
+            <div class="hero-buttons">
+              <a href="./task.html" class="btn btn-primary">New Project</a>
+              <a href="./personal.html" class="btn btn-secondary">Go to Personal</a>
             </div>
           </div>
-          <button class="btn clear-btn d-none" id="none">Clear All</button>
+          <div class="hero-image">
+            <img src="../img/TASK.avif" alt="Task Management">
+          </div>
+        </section>
+        
       </main>
-      <!-- MAIN -->
-    </section>
-    <section id="content">
-      <div id="chat-interface">
-        <h2>Task Status Overview</h2>
-        <div id="chat-container">
-          <!-- <canvas id="taskChart" class="chat"></canvas> Chart will be rendered here -->
-          <canvas id="taskStatusChart" width="200" height="100"></canvas>
+  
 
-        </div>
-      </div>
     </section>
-    <script src="../js/personal.js" defer></script>
+
+    <script src="../js/home.js"></script>
   </body>
 </html>

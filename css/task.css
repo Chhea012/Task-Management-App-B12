@@ -322,6 +322,14 @@ body {
 	#content nav .nav-link {
 		display: none;
 	}
+	.list-task{
+		width: 100%;
+		height: 200px;
+		padding: 0px;
+		overflow: hidden;
+		overflow-y: scroll;
+	
+	}
 
 
 
@@ -331,7 +339,46 @@ body {
 	#content nav form .form-input input {
 		display: none;
 	}
-
+	.content-flex{
+		display: flex;
+		gap: 20px;
+		justify-content: start;
+		align-items: center;
+		flex-direction: row;
+		margin-bottom: 20px;
+		flex-wrap: wrap;
+	}
+	.list-task{
+		width: 100%;
+		height: 200px;
+		padding: 0px;
+		overflow: hidden;
+		overflow-y: scroll;
+	
+	}
+	.swal2-container, .swal2-center, .swal2-backdrop-show{
+		width: 380px;
+		margin-left: 12.5%;
+	}
+	.swal2-title{
+		margin-right: 40px;
+	}
+	.save{
+		height: 3rem;
+		font-size: 10px;
+		margin-right: 10px;
+	}
+	.card-task{
+		margin-top:20px;
+		width: 210px;
+		background-color: rgba(188, 188, 188, 0.179);
+		height: 40vh;
+		border-radius: 10px;
+		border: 1px solid rgb(138, 145, 143);
+	}
+	#search{
+		height: 20vh;
+	}
 	#content nav form .form-input button {
 		width: auto;
 		height: auto;
@@ -370,43 +417,45 @@ body {
 	#content main .table-data .todo .todo-list {
 		min-width: 420px;
 	}
+
 }
 
-
-
-#search{
-	width: 85%;
-	padding:6px;
-	border: 1px solid #ccc;;
-	background-color: #f4eeeebf;
-	border-radius:5px;
-	outline-color: green;
+.bx-plus{
+	font-size: 20px;
 }
-.save{
-	background-color: rgba(60, 148, 60, 0.945);
-	padding: 10px;
-	border: none;
-	color: white;
-	border-radius:5px;
+
+.add-task-btn{
+	background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
+
 .main-search{
 	display: flex;
 	gap: 10px;
 }
-
+/* .add-main-task{
+	display: none;
+} */
 .card-task{
 	margin-top:20px;
 	width: 310px;
-	background-color: rgba(255, 255, 255, 0.199);
-	height: 70vh;
+	background-color: rgba(188, 188, 188, 0.179);
+	height: 68vh;
 	border-radius: 10px;
-	border: 1px solid rgb(109, 146, 137);
+	border: 1px solid rgb(138, 145, 143);
 }
 .card-task p{
 	padding: 10px;
 }
-
-.circle{
+/* .add-task-btn{
+	position: absolute;
+	top:93%;
+} */
+.circle-todo{
 	width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -414,6 +463,15 @@ body {
 	border: 1px solid green;
 	margin-left: 10px;
 
+}
+.circle-color{
+	width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    margin-left: 10px;
+	margin-top: 3px;
+	border:1px solid rgb(4, 67, 255);
 }
 .circle-done{
 	width: 20px;
@@ -439,14 +497,18 @@ body {
 
 .task{
 	margin-top: 5px;
-	width: 290px;
+	width: 285px;
+	height: 70px;
 	margin-left: 10px;
 	background: #ffffff;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	border-radius: 5px;
 }
 
-
+#taskChart{
+	width: 70%;
+    height: 450px;
+}
 .btn-task{
 	display: flex;
 	align-items: center;
@@ -505,9 +567,10 @@ body {
 
 .content-flex{
 	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: start;
+	align-items: center;
+	flex-direction: row;
 }
 
 .add-main-task{
@@ -517,7 +580,7 @@ body {
 
 #task-description{
 	width: 80%;
-    height: 150px;
+    height: 100px;
     border: 1px solid #ccc;
     padding: 10px;
 }
@@ -547,6 +610,7 @@ body {
 	width: 80%;
     border: 1px solid #ccc;
     padding: 10px;
+	height: 40px;
 }
 #swal2-title{
 	text-align: start;
@@ -555,6 +619,16 @@ body {
 	font-weight: lighter;
 } 
 
+#taskDescription{
+	width: 80%;
+    height: 90px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.swal2-popup, .swal2-modal, .swal2-show{
+	width: 40%;
+	height: 400px;
+}
 #swal2-title{
 	text-align: center;
 }
@@ -572,6 +646,201 @@ body {
 .bx-menu{
 	font-size: 16px;
 }
-.add-main-task-btn{
-	display:none;
+.list-group{
+	background:none;
+}
+
+.task-actions {
+	margin-top: 10px;
+	display: flex;
+	gap: 10px;
+  }
+  
+  .edit-task-btn, .delete-task-btn {
+	padding: 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+	background-color: #007bff;
+	color: white;
+  }
+  
+  .delete-task-btn {
+	background-color: #dc3545;
+  }
+  
+  .edit-task-btn:hover, .delete-task-btn:hover {
+	opacity: 0.8;
+  }
+  
+  .bi {
+	font-size: 1.2rem; /* Slightly larger icon size */
+	transition: transform 0.2s ease, color 0.2s ease; /* Smooth hover effects */
+  }
+  
+  .bi:hover {
+	transform: scale(1.3); /* Enlarge icon on hover */
+	color: #0d6efd; /* Change color to primary on hover */
+  }
+  
+  .bi {
+	font-size: 1.5rem;
+	cursor: pointer;
+  }
+  .d-flex {
+	display: flex;
+	gap: 10px;
+  }
+
+.list-group-item{
+	background-color: #7a7a7a11 ;
+}
+.main-search{
+	margin-top: 30px;
+}
+#search{
+	padding: 20px;
+	width: 80%;
+	height: 2.6rem;
+	border: 1px solid #ccc;
+	outline-color: green;
+	border-radius: 5px;
+}
+#create{
+	background-color: rgb(26, 181, 26);
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	border-radius: 10px;
+	font-size: 17px;
+
+
+}
+#create:hover{
+	background-color: green;
+
+
+}
+h2{
+	margin-top: 10px;
+}
+
+/* Buttons for Edit and Delete */
+.task-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 1rem;
+  }
+  
+  .task-actions .btn {
+	padding: 0.6rem 1.2rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn {
+	background-color: #6c5ce7;
+  }
+  
+  .edit-btn:hover {
+	background-color: #5a4bdc;
+  }
+  
+  .delete-btn {
+	background-color: #d63031;
+  }
+  
+  .delete-btn:hover {
+	background-color: #c62828;
+  }
+  
+  .btn:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+  }
+  
+ /* Common styles for both buttons */
+.task-buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  
+  .task-button {
+	padding: 8px 15px;
+	font-size: 14px;
+	font-weight: 500;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-align: center;
+  }
+  
+/* Container for the Edit and Delete buttons */
+.task-buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+  }
+  
+  /* Common button styles */
+  .task-button {
+	padding: 8px 15px;
+	font-size: 14px;
+	font-weight: 500;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-align: center;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+.btn-primary{
+	background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+.btn-danger{
+	background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+.list-task{
+	width: 330px;
+	height: 370px;
+	padding: 0px;
+	overflow: hidden;
+	overflow-y: scroll;
+
+}
+.swal2-popup {
+	width: 480px;
+	height: 65vh;
+}
+.swal2-actions{
+	margin-bottom: 20%;
+}
+.swal2-popup, .swal2-modal, .swal2-show{
+	width: 480px;
+    height: 75vh;
 }
