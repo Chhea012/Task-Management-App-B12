@@ -555,7 +555,7 @@ body {
 	#content nav form .form-input input {
 		display: none;
 	}
-
+	
 	#content nav form .form-input button {
 		width: auto;
 		height: auto;
@@ -563,7 +563,6 @@ body {
 		border-radius: none;
 		color: var(--dark);
 	}
-
 	#content nav form.show .form-input input {
 		display: block;
 		width: 100%;
@@ -598,6 +597,7 @@ body {
 	#content main .table-data .todo .todo-list {
 		min-width: 420px;
 	}
+	
 }
 
 

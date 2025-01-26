@@ -64,355 +64,483 @@ switchMode.addEventListener("change", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const createButton = document.getElementById("create");
+    const mainContent = document.getElementById("main-content");
 
+    // Create dropdown container dynamically
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.style.marginBottom = "1rem";
 
+    const taskDropdown = document.createElement("select");
+    taskDropdown.setAttribute("id", "all-tasks");
+    taskDropdown.style.padding = "0.5rem";
+    taskDropdown.style.fontSize = "1rem";
 
-// Select the button
-const ButtonTask = document.querySelector('.add-main-task-btn');
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit Project";
+    editButton.classList.add("btn-primary");
+    editButton.style.marginLeft = "1rem";
 
-// Function to save tasks to localStorage
-function saveTaskToLocalStorage(task) {
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push(task);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete Project";
+    deleteButton.classList.add("btn-danger");
+    deleteButton.style.marginLeft = "0.5rem";
 
-// Function to load tasks from localStorage
-function loadTasksFromLocalStorage() {
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  const mainContent = document.querySelector('.main-content');
+    dropdownContainer.appendChild(taskDropdown);
+    dropdownContainer.appendChild(editButton);
+    dropdownContainer.appendChild(deleteButton);
+    mainContent.insertBefore(dropdownContainer, mainContent.firstChild);
 
-  tasks.forEach((task, index) => {
-    const taskCard = document.createElement('div');
-    taskCard.classList.add('card-task');
-    taskCard.dataset.index = index; // Store the task index for future editing and deleting
+    let taskCounter = 1;
 
-    taskCard.innerHTML = `
-      <div class="card-btn">
-        <button class="circle-progress"></button>
-        <h5>${task.status}</h5>
-      </div>
-      <p>${task.description}</p>
-      <div class="add-task">
-        <button class="add-task-btn">
-          <i class='bx bx-plus'></i>Add item
-        </button>
-      </div>
-    `;
+    // Add default "All Tasks" option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Select a task...";
+    taskDropdown.appendChild(defaultOption);
 
-    // Add event listener to the entire card for double-click to trigger deletion
-    taskCard.addEventListener('dblclick', () => {
-      deleteTask(taskCard, task, index);
-    });
+    // Load saved tasks from localStorage
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    mainContent.appendChild(taskCard);
-  });
-}
-// Function to handle task editing or deletion
-function deleteTask(taskCard, task, index) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "This task will be permanently deleted!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Delete Task',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: '#d33',
-    preConfirm: () => {
-      // Delete the task from localStorage
-      const tasks = JSON.parse(localStorage.getItem('tasks'));
-      tasks.splice(index, 1);
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-
-      // Remove the task card from the page
-      taskCard.remove();
+    // Function to save tasks to localStorage
+    function saveTasksToLocalStorage() {
+        const tasks = [...document.querySelectorAll(".task-container")].map((task) => ({
+            id: task.id,
+            name: task.querySelector("h2").textContent,
+            cards: [...task.querySelectorAll(".task")].map((card) => ({
+                taskName: card.querySelector("h5").textContent,
+                taskDescription: card.querySelector("p").textContent,
+                taskStatus: card.closest(".card-task").classList[1] // Get status (todo, in-progress, done)
+            }))
+        }));
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     }
-  });
-}
-// Event listener for the button click to create new task
-ButtonTask.addEventListener('click', () => {
-  Swal.fire({
-    title: 'Add Task',
-    html: `
-      <input id="taskStatus" class="swal2-input" placeholder="Enter task status" />
-      <textarea id="taskDescription" class="swal2-textarea" placeholder="Enter task description"></textarea>
-    `,
-    focusConfirm: false,
-    showCancelButton: true,
-    confirmButtonText: 'Create Task',
-    cancelButtonText: 'Cancel',
-    preConfirm: () => {
-      const status = document.getElementById('taskStatus').value;
-      const description = document.getElementById('taskDescription').value;
 
-      if (!status || !description) {
-        Swal.showValidationMessage('Please enter both status and description');
-        return false;
-      }
+    // Function to create a new task card
+    function createTaskCard(taskName, taskDescription) {
+        const newTaskCard = document.createElement("div");
+        newTaskCard.classList.add("task");
 
-      const task = {
-        status: status,
-        description: description
-      };
-
-      // Save task to localStorage
-      saveTaskToLocalStorage(task);
-
-      // Add new task to the page
-      const mainContent = document.querySelector('.main-content');
-      const taskCard = document.createElement('div');
-      taskCard.classList.add('card-task');
-      taskCard.innerHTML = `
-        <div class="card-btn">
-          <button class="circle-progress"></button>
-          <h5>${status}</h5>
-        </div>
-        <p>${description}</p>
-        <div class="add-task">
-          <button class="add-task-btn">
-            <i class='bx bx-plus'></i>Add item
-          </button>
-        </div>
-      `;
-
-      // Add event listener for double-click to trigger deletion
-      taskCard.addEventListener('dblclick', () => {
-        deleteTask(taskCard, task, JSON.parse(localStorage.getItem('tasks')).length - 1);
-      });
-
-      mainContent.appendChild(taskCard);
-    }
-  });
-});
-// Load tasks from localStorage when the page loads
-window.addEventListener('DOMContentLoaded', loadTasksFromLocalStorage);
-
-// Function to save tasks to localStorage
-function saveTasksToLocalStorage() {
-    const tasks = [];
-    document.querySelectorAll('.task').forEach((task) => {
-        const taskName = task.querySelector('h5').textContent;
-        const taskDescription = task.querySelector('p').textContent;
-        const parentClass = task.closest('.card-task').classList[1]; // Get the container class (e.g., 'todo', 'in-progress', 'done')
-        tasks.push({ taskName, taskDescription, parentClass });
-    });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-// Function to load tasks from localStorage
-function loadTasksFromLocalStorage() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.forEach(({ taskName, taskDescription, parentClass }) => {
-        const targetContainer = `.card-task.${parentClass}`;
-        createTask(taskName, taskDescription, targetContainer, false); // false = don't save again
-    });
-}
-
-// Function to create and append a new task
-function createTask(taskName, taskDescription, targetContainer, save = true) {
-    const taskDiv = document.createElement('div');
-    taskDiv.classList.add('task');
-    taskDiv.setAttribute('draggable', 'true'); // Make the task draggable
-
-    taskDiv.innerHTML = `
-        <div class="btn-task">
-            <div class="task-flex">
-                <button class="do-done"></button>
-                <h5>${taskName}</h5>
+        newTaskCard.innerHTML = `
+            <div class="btn-task">
+                <div class="task-flex">
+                    <button class="circle-color"></button>
+                    <h5>${taskName}</h5>
+                </div>
+                <i class="bx bx-dots-horizontal-rounded icons"></i>
             </div>
-            <i class='bx bx-dots-horizontal-rounded icons'></i>
-        </div>
-        <p>${taskDescription}</p>
-    `;
+            <p>${taskDescription}</p>
+        `;
 
-    // Append the task to the appropriate container
-    document.querySelector(targetContainer).appendChild(taskDiv);
-
-    // Now, let's ensure the button color is updated according to the container type
-    const button = taskDiv.querySelector('.do-done');
-    const container = document.querySelector(targetContainer);
-
-    // Set button color based on the parent container
-    if (container.classList.contains('todo')) {
-        button.style.backgroundColor = 'red'; // Set the color for todo tasks
-    } else if (container.classList.contains('in-progress')) {
-        button.style.backgroundColor = 'yellow'; // Set the color for in-progress tasks
-    } else if (container.classList.contains('done')) {
-        button.style.backgroundColor = 'green'; // Set the color for done tasks
+        return newTaskCard;
     }
 
-    addDragEvents(taskDiv); // Add drag-and-drop functionality to the task
+    // Function to create a new task container
+    function createNewTask(taskName) {
+        const newTaskContainer = document.createElement("div");
+        newTaskContainer.setAttribute("class", "task-container");
+        newTaskContainer.setAttribute("id", taskName);
 
-    if (save) saveTasksToLocalStorage(); // Save to localStorage only if specified
-}
+        newTaskContainer.innerHTML = `
+            <h2>${taskName}</h2>
+            <div class="content-flex">
+                <div class="main-content">
+                    <div class="card-task todo">
+                        <div class="card-btn">
+                            <button class="circle-todo"></button>
+                            <h5>Todo</h5>
+                        </div>
+                        <p>This is a todo task.</p>
+                        <div class ='list-task todo'></div>
+                        <div class="add-task">
+                            <button class="add-task-btn todo">
+                                <i class='bx bx-plus'></i>Add item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="card-task in-progress">
+                        <div class="card-btn">
+                            <button class="circle-progress"></button>
+                            <h5>In progress</h5>
+                        </div>
+                        <p>This is an in-progress task.</p>
+                        <div class ='list-task in-progress'></div>
+                        <div class="add-task">
+                            <button class="add-task-btn in-progress">
+                                <i class='bx bx-plus'></i>Add item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content">
+                    <div class="card-task done">
+                        <div class="card-btn">
+                            <button class="circle-done"></button>
+                            <h5>Done</h5>
+                        </div>
+                        <p>This is a done task.</p>
+                        <div class ='list-task done'></div>
+                        <div class="add-task">
+                            <button class="add-task-btn done">
+                                <i class='bx bx-plus'></i>Add item
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
 
-// Add drag-and-drop events to tasks
-function addDragEvents(task) {
-    task.addEventListener('dragstart', () => {
-        task.classList.add('dragging');
+        return newTaskContainer;
+    }
+
+    // Handle Create Project button click
+    createButton.addEventListener("click", function () {
+        Swal.fire({
+            title: 'Enter Project Name',
+            input: 'text',
+            inputValue: `Task ${taskCounter + 1}`,
+            inputPlaceholder: 'Enter your project name...',
+            showCancelButton: true,
+            confirmButtonText: 'Create Project',
+            cancelButtonText: 'Cancel',
+            background: '#f1f1f1',  // Set background color
+            inputAttributes: {
+                autocapitalize: 'off',
+                spellcheck: 'false'
+            },
+            preConfirm: (projectName) => {
+                if (!projectName || projectName.trim() === "") {
+                    Swal.showValidationMessage('Project name is required!');
+                    return;
+                }
+                return projectName;
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                const projectName = result.value;
+                if (!projectName || projectName.trim() === "") {
+                    alert("Project creation cancelled or invalid name provided.");
+                    return;
+                }
+
+                document.querySelectorAll(".task-container").forEach((task) => {
+                    task.style.display = "none";
+                });
+
+                const taskOption = document.createElement("option");
+                taskOption.value = projectName;
+                taskOption.textContent = projectName;
+                taskDropdown.appendChild(taskOption);
+
+                const newTask = createNewTask(projectName);
+                newTask.style.display = "block";
+                mainContent.appendChild(newTask);
+
+                taskDropdown.value = projectName;
+
+                saveTasksToLocalStorage();
+                taskCounter++;
+            }
+        });
     });
 
-    task.addEventListener('dragend', () => {
-        task.classList.remove('dragging');
-        saveTasksToLocalStorage(); // Save updated tasks after moving
-    });
-}
-
-// Allow dropping into task containers
-document.querySelectorAll('.card-task').forEach((container) => {
-    container.addEventListener('dragover', (e) => {
-        e.preventDefault(); // Allow dropping by preventing the default behavior
-        container.classList.add('drag-over');
-    });
-
-    container.addEventListener('dragleave', () => {
-        container.classList.remove('drag-over');
-    });
-
-    container.addEventListener('drop', (e) => {
-        e.preventDefault();
-        container.classList.remove('drag-over');
-
-        // Get the dragged task
-        const draggedTask = document.querySelector('.dragging');
-        container.appendChild(draggedTask); // Move the task to the new container
-
-        // Update button color based on the new container
-        const button = draggedTask.querySelector('.do-done');
-        if (container.classList.contains('todo')) {
-            button.style.backgroundColor = 'red'; // Set the color for todo tasks
-        } else if (container.classList.contains('in-progress')) {
-            button.style.backgroundColor = 'yellow'; // Set the color for in-progress tasks
-        } else if (container.classList.contains('done')) {
-            button.style.backgroundColor = 'green'; // Set the color for done tasks
+    // Handle Edit Project Name button click
+    editButton.addEventListener("click", function () {
+        const selectedTask = taskDropdown.value;
+        if (!selectedTask) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No project selected',
+                text: 'Please select a project to edit.'
+            });
+            return;
         }
 
-        saveTasksToLocalStorage(); // Save updated tasks after moving
-    });
-});
-
-// Event delegation for task actions (Edit/Delete)
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('bx-dots-horizontal-rounded')) {
-        const taskDiv = e.target.closest('.task');
-
         Swal.fire({
-            title: 'Task Options',
+            title: 'Enter New Project Name',
+            input: 'text',
+            inputValue: selectedTask,
+            inputPlaceholder: 'Enter new project name...',
             showCancelButton: true,
-            showDenyButton: true,
-            confirmButtonText: 'Edit',
-            denyButtonText: 'Delete',
+            confirmButtonText: 'Save Changes',
             cancelButtonText: 'Cancel',
-            icon: 'question',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Edit task
-                Swal.fire({
-                    title: 'Edit Task',
-                    html: `
-                        <input type="text" id="edit-task-name" class="swal2-input" placeholder="Task Name" value="${taskDiv.querySelector('h5').textContent}">
-                        <textarea id="edit-task-description" class="swal2-textarea" placeholder="Task Description">${taskDiv.querySelector('p').textContent}</textarea>
-                    `,
-                    focusConfirm: false,
-                    preConfirm: () => {
-                        const newTaskName = document.getElementById('edit-task-name').value;
-                        const newTaskDescription = document.getElementById('edit-task-description').value;
-
-                        if (!newTaskName || !newTaskDescription) {
-                            Swal.showValidationMessage('Please enter both task name and description.');
-                            return false;
-                        }
-
-                        return { newTaskName, newTaskDescription };
-                    },
-                }).then((editResult) => {
-                    if (editResult.isConfirmed) {
-                        const { newTaskName, newTaskDescription } = editResult.value;
-                        taskDiv.querySelector('h5').textContent = newTaskName;
-                        taskDiv.querySelector('p').textContent = newTaskDescription;
-                        saveTasksToLocalStorage();
-                        Swal.fire({
-                            title: 'Task Updated!',
-                            text: 'Your task has been updated successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'Okay',
-                        });
-                    }
-                });
-            } else if (result.isDenied) {
-                // Delete task
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'This action cannot be undone.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Delete',
-                    cancelButtonText: 'Cancel',
-                }).then((deleteResult) => {
-                    if (deleteResult.isConfirmed) {
-                        taskDiv.remove();
-                        saveTasksToLocalStorage();
-                        Swal.fire({
-                            title: 'Deleted!',
-                            text: 'The task has been deleted successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'Okay',
-                        });
-                    }
-                });
+            inputAttributes: {
+                autocapitalize: 'off',
+                spellcheck: 'false'
+            },
+            preConfirm: (newTaskName) => {
+                if (!newTaskName || newTaskName.trim() === "") {
+                    Swal.showValidationMessage('New project name is required!');
+                    return;
+                }
+                return newTaskName;
             }
-        });
-    }
-});
-// Add task button event listener
-document.querySelectorAll('.add-task-btn').forEach((item) => {
-    item.addEventListener('click', () => {
-        Swal.fire({
-            title: 'Add new item',
-            html: `
-                <input type="text" id="task-name" class="swal2-input" placeholder="Task Name">
-                <textarea id="task-description" class="swal2-textarea" placeholder="Task Description"></textarea>
-            `,
-            focusConfirm: false,
-            preConfirm: () => {
-                const taskName = document.getElementById('task-name').value;
-                const taskDescription = document.getElementById('task-description').value;
-
-                if (!taskName || !taskDescription) {
-                    Swal.showValidationMessage('Please enter both task name and description.');
-                    return false;
+        }).then(result => {
+            if (result.isConfirmed) {
+                const newTaskName = result.value;
+                if (!newTaskName || newTaskName.trim() === "") {
+                    alert("Edit cancelled or invalid name provided.");
+                    return;
                 }
 
-                return { taskName, taskDescription };
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const { taskName, taskDescription } = result.value;
-
-                const parentCard = item.closest('.card-task');
-                let targetContainer;
-
-                if (parentCard.classList.contains('todo')) {
-                    targetContainer = '.card-task.todo';
-                } else if (parentCard.classList.contains('in-progress')) {
-                    targetContainer = '.card-task.in-progress';
-                } else if (parentCard.classList.contains('done')) {
-                    targetContainer = '.card-task.done';
+                // Update task container
+                const taskContainer = document.getElementById(selectedTask);
+                if (taskContainer) {
+                    taskContainer.querySelector("h2").textContent = newTaskName;
+                    taskContainer.id = newTaskName;
                 }
 
-                createTask(taskName, taskDescription, targetContainer);
+                // Update dropdown option
+                const taskOption = taskDropdown.querySelector(`option[value="${selectedTask}"]`);
+                if (taskOption) {
+                    taskOption.value = newTaskName;
+                    taskOption.textContent = newTaskName;
+                }
+
+                // Update dropdown value to the new name
+                taskDropdown.value = newTaskName;
+
+                saveTasksToLocalStorage();
             }
         });
     });
+
+    // Handle Delete Project button click
+    deleteButton.addEventListener("click", function () {
+        const selectedTask = taskDropdown.value;
+        if (!selectedTask) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No project selected',
+                text: 'Please select a project to delete.'
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: `Are you sure you want to delete "${selectedTask}"?`,
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+        }).then(result => {
+            if (result.isConfirmed) {
+                // Remove task container
+                const taskContainer = document.getElementById(selectedTask);
+                if (taskContainer) {
+                    taskContainer.remove();
+                }
+
+                // Remove dropdown option
+                const taskOption = taskDropdown.querySelector(`option[value="${selectedTask}"]`);
+                if (taskOption) {
+                    taskOption.remove();
+                }
+
+                // Reset dropdown to default
+                taskDropdown.value = "";
+
+                // Remove task from localStorage
+                const updatedTasks = savedTasks.filter(task => task.name !== selectedTask);
+                localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+                saveTasksToLocalStorage(); // Update localStorage after deletion
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Project deleted!',
+                    text: `"${selectedTask}" has been successfully deleted.`
+                });
+            }
+        });
+    });
+
+    // Dropdown change event to display selected task
+    taskDropdown.addEventListener("change", function () {
+        const selectedTask = taskDropdown.value;
+
+        document.querySelectorAll(".task-container").forEach((task) => {
+            task.style.display = "none";
+        });
+
+        if (selectedTask) {
+            const taskToShow = document.getElementById(selectedTask);
+            if (taskToShow) {
+                taskToShow.style.display = "block";
+            }
+        }
+    });
+
+    // If no tasks in localStorage, initialize with a default task
+    if (savedTasks.length === 0) {
+        const initialTask = createNewTask("Task ");
+        initialTask.style.display = "block";
+        mainContent.appendChild(initialTask);
+
+        const initialOption = document.createElement("option");
+        initialOption.value = "Task ";
+        initialOption.textContent = "Task ";  
+        taskDropdown.appendChild(initialOption);
+
+        saveTasksToLocalStorage();
+    } else {
+        // Load saved tasks from localStorage
+        savedTasks.forEach((task) => {
+            const restoredTask = createNewTask(task.name);
+            restoredTask.style.display = "none";
+            mainContent.appendChild(restoredTask);
+
+            // Restore task cards
+            task.cards.forEach(card => {
+                const taskCard = createTaskCard(card.taskName, card.taskDescription);
+                const statusDiv = restoredTask.querySelector(`.card-task.${card.taskStatus}`);
+                if (statusDiv) {
+                    statusDiv.querySelector(".list-task").appendChild(taskCard); // Append card to .list-task
+                }
+            });
+
+            const restoredOption = document.createElement("option");
+            restoredOption.value = task.name;
+            restoredOption.textContent = task.name;
+            taskDropdown.appendChild(restoredOption);
+        });
+
+        taskDropdown.value = savedTasks[0].name;
+        const firstTaskToShow = document.getElementById(savedTasks[0].name);
+        if (firstTaskToShow) {
+            firstTaskToShow.style.display = "block";
+        }
+    }
+
+    // Add item button functionality (SweetAlert popup)
+    document.addEventListener("click", function(event) {
+        if (event.target.closest('.add-task-btn')) {
+            const cardContainer = event.target.closest('.card-task');
+            const listTaskContainer = cardContainer.querySelector('.list-task'); // Get the .list-task container
+            const status = cardContainer.classList[1]; // Get current status (todo, in-progress, done)
+
+            // Show SweetAlert prompt
+            Swal.fire({
+                title: 'Task  Name',
+                html: `
+                    <input id="task-name" class="swal2-input" placeholder="Task Name" />
+                    <textarea id="task-description" class="swal2-textarea" placeholder="Task Description"></textarea>
+                `,
+                preConfirm: () => {
+                    const taskName = document.getElementById('task-name').value;
+                    const taskDescription = document.getElementById('task-description').value;
+                    if (!taskName || !taskDescription) {
+                        Swal.showValidationMessage("Both fields are required!");
+                        return;
+                    }
+                    return { taskName, taskDescription };
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    const { taskName, taskDescription } = result.value;
+                    // Create and add task card
+                    const newCard = createTaskCard(taskName, taskDescription);
+                    listTaskContainer.appendChild(newCard); // Append the new card to the .list-task container
+
+                    // Save task to localStorage
+                    const taskNameFromDropdown = taskDropdown.value;
+                    const task = savedTasks.find(t => t.name === taskNameFromDropdown);
+                    if (task) {
+                        task.cards.push({
+                            taskName,
+                            taskDescription,
+                            taskStatus: status
+                        });
+                        saveTasksToLocalStorage();
+                    }
+                }
+            });
+        }
+    });
+
+    // Handle the icon (bx-dots-horizontal-rounded) click for edit and delete actions
+    document.addEventListener("click", function(event) {
+        if (event.target && event.target.classList.contains("bx-dots-horizontal-rounded")) {
+            const taskCard = event.target.closest(".task");
+            const taskName = taskCard.querySelector("h5").textContent;
+            const taskDescription = taskCard.querySelector("p").textContent;
+
+            Swal.fire({
+                title: 'Choose an action',
+                text: `Task: ${taskName}`,
+                showCancelButton: true,
+                confirmButtonText: 'Edit Task',
+                cancelButtonText: 'Delete Task',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    // Edit task name and description
+                    Swal.fire({
+                        title: 'Edit Task',
+                        html: `
+                            <input id="edit-task-name" class="swal2-input" value="${taskName}" placeholder="Task Name" />
+                            <textarea id="edit-task-description" class="swal2-textarea" placeholder="Task Description">${taskDescription}</textarea>
+                        `,
+                        preConfirm: () => {
+                            const newTaskName = document.getElementById('edit-task-name').value;
+                            const newTaskDescription = document.getElementById('edit-task-description').value;
+                            if (!newTaskName || !newTaskDescription) {
+                                Swal.showValidationMessage("Both fields are required!");
+                                return;
+                            }
+                            return { newTaskName, newTaskDescription };
+                        }
+                    }).then(editResult => {
+                        if (editResult.isConfirmed) {
+                            const { newTaskName, newTaskDescription } = editResult.value;
+                            taskCard.querySelector("h5").textContent = newTaskName;
+                            taskCard.querySelector("p").textContent = newTaskDescription;
+
+                            // Update task in localStorage
+                            const taskNameFromDropdown = taskDropdown.value;
+                            const task = savedTasks.find(t => t.name === taskNameFromDropdown);
+                            if (task) {
+                                const taskCardToUpdate = task.cards.find(card => card.taskName === taskName);
+                                if (taskCardToUpdate) {
+                                    taskCardToUpdate.taskName = newTaskName;
+                                    taskCardToUpdate.taskDescription = newTaskDescription;
+                                    saveTasksToLocalStorage();
+                                }
+                            }
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Delete task
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This action cannot be undone.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Delete',
+                        cancelButtonText: 'Cancel'
+                    }).then(deleteResult => {
+                        if (deleteResult.isConfirmed) {
+                            taskCard.remove();
+
+                            // Remove task from localStorage
+                            const taskNameFromDropdown = taskDropdown.value;
+                            const task = savedTasks.find(t => t.name === taskNameFromDropdown);
+                            if (task) {
+                                task.cards = task.cards.filter(card => card.taskName !== taskName);
+                                saveTasksToLocalStorage();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
-// Load tasks when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    loadTasksFromLocalStorage();
-});
-
-
-
-
 
 function confirmLogout() {
   Swal.fire({
@@ -431,3 +559,7 @@ function confirmLogout() {
     }
   });
 }
+
+
+
+
