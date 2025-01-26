@@ -70,11 +70,6 @@ switchMode.addEventListener("change", function () {
     document.body.classList.remove("dark");
   }
 });
-
-
-
-
-
 function confirmLogout() {
   Swal.fire({
     title: 'Are you sure?',

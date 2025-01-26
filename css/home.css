@@ -562,7 +562,6 @@ body {
 	#content nav form .form-input input {
 		display: none;
 	}
-
 	#content nav form .form-input button {
 		width: auto;
 		height: auto;
@@ -673,7 +672,7 @@ body {
 }
 
 
-@media screen and (min-width: 600px) and (max-width: 1024px) {
+@media screen and (min-width: 576px) and (max-width: 1024px) {
     .hero {
         flex-direction: column-reverse;
         text-align: center;
