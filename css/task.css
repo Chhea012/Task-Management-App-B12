@@ -444,7 +444,7 @@ body {
 	margin-top:20px;
 	width: 310px;
 	background-color: rgba(188, 188, 188, 0.179);
-	height: 70vh;
+	height: 68vh;
 	border-radius: 10px;
 	border: 1px solid rgb(138, 145, 143);
 }
@@ -505,7 +505,10 @@ body {
 	border-radius: 5px;
 }
 
-
+#taskChart{
+	width: 70%;
+    height: 450px;
+}
 .btn-task{
 	display: flex;
 	align-items: center;
@@ -824,7 +827,7 @@ h2{
 }
 .list-task{
 	width: 330px;
-	height: 390px;
+	height: 370px;
 	padding: 0px;
 	overflow: hidden;
 	overflow-y: scroll;
